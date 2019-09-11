@@ -1,0 +1,150 @@
+<h2>Datos del Empleado</h2>
+<form [formGroup]="form" (submit)="guardarDatos()">
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label for="id">Id</label>
+            <input class="form-control" fomrControlName="id" readonly>
+        </div>
+    </div>
+    <div class=" form-row">
+        <div class="form-group col-md-4">
+            <label for="name">Nombres</label>
+            <input class="form-control" formControlName="name"
+                [className]="(form.controls['name'].invalid && (form.controls['name'].dirty || form.controls['name'].touched))?'form-control is-invalid' : 'form-control'"
+                >
+            <div class="invalid-feedback">
+                Nombre invalido.
+            </div>
+        </div>
+
+        <div class="form-group col-md-4">
+            <label for="f_lastname">Primer Apellido</label>
+            <input class="form-control" formControlName="f_lastname"
+                [className]="(form.controls['f_lastname'].invalid && (form.controls['f_lastname'].dirty || form.controls['f_lastname'].touched))?'form-control is-invalid' : 'form-control'">
+            <div class="invalid-feedback">
+                Primer Apellido invalido.
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="s_lastname">Segundo Apellido</label>
+            <input class="form-control" formControlName="s_lastname"
+                [className]="(form.controls['s_lastname'].invalid && (form.controls['s_lastname'].dirty || form.controls['s_lastname'].touched))?'form-control is-invalid' : 'form-control'">
+            <div class="invalid-feedback">
+                Segundo Apellido invalido.
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="r_user">Usuario de Registro</label>
+            <input type="text" class="form-control" formControlName="r_user"
+                [className]="(form.controls['r_user'].invalid && (form.controls['r_user'].dirty || form.controls['r_user'].touched))?'form-control is-invalid' : 'form-control'">
+            <div class="invalid-feedback">
+                Usuario invalido.
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="customCheck1" formControlName="status">
+            <label class="custom-control-label" for="customCheck1">Estatus</label>
+        </div>
+
+    </div>
+
+    <button type="button" class="btn btn-secondary m-1" [disabled]="form.invalid" (click)="openConfirmation(saveConfirmation,'save',e)">Guardar</button>
+    <button type="button" class="btn btn-outline-secondary m-1" (click)="limpiar()">{{form.controls['id'].value ? 'Nuevo':'Limpiar'}}</button>
+
+    <br>
+    <br>
+    <h2>Empleados</h2>
+    <table class="table table-hover table-bordeless">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>P. Apellido</th>
+                <th>S. Apellido</th>
+                <th>Usuario Registro</th>
+                <th>Estatus</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>ID</td>
+                <td>Nombre</td>
+                <td>P. Apellido</td>
+                <td>S. Apellido</td>
+                <td>Usuario Registro</td>
+                <td>Estatus</td>
+                <td>
+                        <button class="btn btn-outline-secondary m-1 btn-sm" (click)="openConfirmation(updateConfirmation,'update',e)">Editar</button>
+                        <button class="btn btn-outline-danger m-1 btn-sm" (click)="openConfirmation(deleteConfirmation,'delete',e)" >Eliminar</button>
+
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</form>
+
+
+
+<ng-template #deleteConfirmation let-modal>
+        <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Confirmación de Eliminación</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>Estás seguro de eliminar al empleado <span class="text-primary">{{empleado.name}}</span> ?</strong></p>
+    <p>Toda la información asosiada a él se eliminará permanentemente.
+    <span class="text-danger">Esta operación no se puede revertir.</span>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" ngbAutofocus  (click)="modal.dismiss(false)">Cancelar</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close(true)">Aceptar</button>
+    </div>
+  </ng-template>
+
+  <ng-template #updateConfirmation let-modal>
+        <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Confirmación de Modificación</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>Estás seguro de actualizar los datos del empleado <span class="text-primary">{{empleado.name}}</span> ?</strong></p>
+    <p>Toda la información modificada asosiada a él se eliminará permanentemente.
+    <span class="text-danger">Esta operación no se puede revertir.</span>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" ngbAutofocus  (click)="modal.dismiss(false)">Cancelar</button>
+    <button type="button" class="btn btn-primary" (click)="modal.close(true)">Aceptar</button>
+    </div>
+  </ng-template>
+
+
+  <ng-template #saveConfirmation let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title">Confirmación de Guardar</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Esta seguro de guardar este empleado?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" (click)="modal.dismiss('Close click')">Cerrar</button>
+            <button type="button" class="btn btn-primary" (click)="modal.close(true)" ngbAutofocus>Aceptar</button>
+
+        </div>
+      </ng-template>
