@@ -32,6 +32,7 @@ export class FormComponent implements OnInit {
   limpiar() {
     console.log(this.form.controls);
     this.form.reset();
+    this.form.controls['status'].setValue(true);
 
   }
 
