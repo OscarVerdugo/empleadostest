@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { ApiService } from "../../services/api.service";
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -9,25 +10,28 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 export class FormComponent implements OnInit {
 
 
-
+  lstEmpleados = [];
   form: any;
   empleado = {};
-  constructor(private formBuilder: FormBuilder, private modalService: NgbModal) {
+  constructor(private formBuilder: FormBuilder, private modalService: NgbModal, private api: ApiService) {
     this.form = this.formBuilder.group({
       id: [null],
       name: [null, Validators.required],
       f_lastname: [null, Validators.required],
       s_lastname: [null, Validators.required],
       r_date: [new Date],
-      r_user: [null, Validators.required],
-      status: [true, Validators.required]
+      r_user: [null, Validators.required]
     });
   }
 
 
 
   ngOnInit() {
-
+    this.api.getAll().subscribe(data => {
+      if(data){
+        this.lstEmpleados = data;
+      }
+    });
   }
   limpiar() {
     console.log(this.form.controls);
@@ -76,11 +80,22 @@ export class FormComponent implements OnInit {
 
 
     eliminarEmpleado(emp){
-
+      this.api.deleteOne(emp.id).subscribe(data =>{
+        console.log(emp);
+      });
+      // this.api.insert(emp).subscribe(data =>{
+      //     console.log(data);
+      // });
     }
 
     editarEmpleado(emp){
-
+      this.empleado = emp;
+      this.form.controls['id'].setValue(emp.id);
+      this.form.controls['name'].setValue(emp.nombre);
+      this.form.controls['f_lastname'].setValue(emp.primer_apellido);
+      this.form.controls['s_lastname'].setValue(emp.segundo_apellido);
+      this.form.controls['r_date'].setValue(emp.fecha_registro);
+      this.form.controls['r_user'].setValue(emp.usuario_registro);
     }
 
     guardarEmpleado(){

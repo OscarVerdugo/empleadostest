@@ -3,7 +3,7 @@
     <div class="form-row">
         <div class="form-group col-md-2">
             <label for="id">Id</label>
-            <input class="form-control" fomrControlName="id" readonly>
+            <input class="form-control" formControlName="id" readonly>
         </div>
     </div>
     <div class=" form-row">
@@ -46,13 +46,6 @@
             </div>
         </div>
     </div>
-    <div class="form-group">
-        <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="customCheck1" formControlName="status">
-            <label class="custom-control-label" for="customCheck1">Estatus</label>
-        </div>
-
-    </div>
 
     <button type="button" class="btn btn-secondary m-1" [disabled]="form.invalid" (click)="openConfirmation(saveConfirmation,'save',e)">Guardar</button>
     <button type="button" class="btn btn-outline-secondary m-1" (click)="limpiar()">{{form.controls['id'].value ? 'Nuevo':'Limpiar'}}</button>
@@ -73,13 +66,13 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>ID</td>
-                <td>Nombre</td>
-                <td>P. Apellido</td>
-                <td>S. Apellido</td>
-                <td>Usuario Registro</td>
-                <td>Estatus</td>
+            <tr *ngFor="let e of lstEmpleados">
+                <td>{{e.id}}</td>
+                <td>{{e.nombre}}</td>
+                <td>{{e.primer_apellido}}</td>
+                <td>{{e.segundo_apellido}}</td>
+                <td>{{e.usuario_registro}}</td>
+                <td>{{e.estatus}}</td>
                 <td>
                         <button class="btn btn-outline-secondary m-1 btn-sm" (click)="openConfirmation(updateConfirmation,'update',e)">Editar</button>
                         <button class="btn btn-outline-danger m-1 btn-sm" (click)="openConfirmation(deleteConfirmation,'delete',e)" >Eliminar</button>

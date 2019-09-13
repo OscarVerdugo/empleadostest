@@ -7,19 +7,27 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  url="work-in-progress";
+  url="http://localhost:5000/";
   headers: HttpHeaders = new HttpHeaders({
-    "Content-type":"application/json"
+    'Access-Control-Allow-Origin':'*'
   });
   constructor(private http: HttpClient) { }
 
 
   getAll():Observable<any>{
-    return this.http.get(this.url+"/getAll",{headers:this.headers}).pipe(map(data => data));
+    return this.http.get(this.url+"empleados-get").pipe(map(data => data));
   }
 
-  getOne(id):Observable<any>{
-    return this.http.post(this.url+"/getAll",{id:id},{headers:this.headers}).pipe(map(data => data));
+  // getOne(id):Observable<any>{
+  //   return this.http.post(this.url+"/getAll",{id:id},{headers:this.headers}).pipe(map(data => data));
+  // }
+
+  deleteOne(id){
+    return this.http.delete(this.url+`empleados-delete${id}`).pipe(map(data => data));
+  }
+
+  insert(emp){
+    return this.http.post(this.url+"empleados-post",{id:1}).pipe(map(data => data));
   }
 
 
