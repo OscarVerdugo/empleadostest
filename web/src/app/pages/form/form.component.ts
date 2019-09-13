@@ -27,16 +27,15 @@ export class FormComponent implements OnInit {
 
 
   ngOnInit() {
-    this.api.getAll().subscribe(data => {
-      if(data){
-        this.lstEmpleados = data;
-      }
-    });
+    this.select();
   }
   limpiar() {
     console.log(this.form.controls);
     this.form.reset();
-    this.form.controls['status'].setValue(true);
+    this.form.controls['id'].setValue(null);
+    this.form.controls['r_date'].setValue(new Date);
+
+
 
   }
 
@@ -53,7 +52,7 @@ export class FormComponent implements OnInit {
       if (result) {
         switch (action) {
           case 'delete':
-              this.eliminarEmpleado(data);
+            this.eliminarEmpleado(data);
             break;
           case 'update':
             this.editarEmpleado(data);
@@ -79,30 +78,65 @@ export class FormComponent implements OnInit {
   }
 
 
-    eliminarEmpleado(emp){
-      this.api.deleteOne(emp.id).subscribe(data =>{
-        console.log(emp);
+  eliminarEmpleado(emp) {
+    this.api.deleteOne(emp.id).subscribe(data => {
+      console.log(data);
+      if (!data['bError']) {
+        let i = this.lstEmpleados.findIndex(x => x.id == emp.id);
+        if (i != -1) this.lstEmpleados[i].estatus = false;
+      }
+    });
+  }
+
+  editarEmpleado(emp) {
+    this.empleado = emp;
+    this.form.controls['id'].setValue(emp.id);
+    this.form.controls['name'].setValue(emp.nombre);
+    this.form.controls['f_lastname'].setValue(emp.primer_apellido);
+    this.form.controls['s_lastname'].setValue(emp.segundo_apellido);
+    this.form.controls['r_date'].setValue(emp.fecha_registro);
+    this.form.controls['r_user'].setValue(emp.usuario_registro);
+  }
+
+  guardarEmpleado() {
+    if (!this.form.controls['id'].value) {
+      //guardar
+      this.api.insert(
+         this.form.controls['name'].value,
+         this.form.controls['f_lastname'].value,
+         this.form.controls['s_lastname'].value,
+          this.form.controls['r_date'].value,
+          this.form.controls['r_user'].value
+      ).subscribe(d =>{
+        if(!d['bError']){
+          this.select();
+        }
       });
-      // this.api.insert(emp).subscribe(data =>{
-      //     console.log(data);
-      // });
-    }
+    } else {
+      //actualizar
+      this.api.update(
+        this.form.controls['id'].value,
+        this.form.controls['name'].value,
+        this.form.controls['f_lastname'].value,
+        this.form.controls['s_lastname'].value,
+         this.form.controls['r_date'].value,
+         this.form.controls['r_user'].value
+     ).subscribe(d =>{
+       console.log(d);
+       this.select();
+     });
 
-    editarEmpleado(emp){
-      this.empleado = emp;
-      this.form.controls['id'].setValue(emp.id);
-      this.form.controls['name'].setValue(emp.nombre);
-      this.form.controls['f_lastname'].setValue(emp.primer_apellido);
-      this.form.controls['s_lastname'].setValue(emp.segundo_apellido);
-      this.form.controls['r_date'].setValue(emp.fecha_registro);
-      this.form.controls['r_user'].setValue(emp.usuario_registro);
-    }
-
-    guardarEmpleado(){
 
     }
+  }
 
-
+  select(){
+    this.api.getAll().subscribe(data => {
+      if (data) {
+        this.lstEmpleados = data;
+      }
+    });
+  }
 
 
 }

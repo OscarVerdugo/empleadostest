@@ -75,7 +75,7 @@
                 <td>{{e.estatus}}</td>
                 <td>
                         <button class="btn btn-outline-secondary m-1 btn-sm" (click)="openConfirmation(updateConfirmation,'update',e)">Editar</button>
-                        <button class="btn btn-outline-danger m-1 btn-sm" (click)="openConfirmation(deleteConfirmation,'delete',e)" >Eliminar</button>
+                        <button class="btn btn-outline-danger m-1 btn-sm" (click)="openConfirmation(deleteConfirmation,'delete',e)" [disabled]="!e.estatus">Eliminar</button>
 
                 </td>
             </tr>
