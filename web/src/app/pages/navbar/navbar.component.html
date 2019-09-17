@@ -1,0 +1,16 @@
+<nav
+  class="navbar navbar-expand-lg navbar-light"
+  id="navbar"
+  [ngClass]="hiddenSideBar ? 'active' : ''"
+>
+  <div>
+    <button type="button" (click)="toggle()" class="btn btn-outline-primary custom-btn">
+      <fa-icon [icon]="faAlignLeft"></fa-icon>
+    </button>
+    <a class="navbar-brand">{{moduleName}}</a>
+  </div>
+  <div>
+    <a class="navbar-brand">Fecha: {{date | date: 'dd-MM-yyyy'}}</a>
+  </div>
+  
+</nav>

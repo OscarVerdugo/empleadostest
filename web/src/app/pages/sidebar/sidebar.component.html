@@ -1,0 +1,28 @@
+<nav [ngClass]="hiddenSideBar ? 'active' : ''" id="sidebar">
+  <div class="sidebar-header">
+    <a style="color:#fff;" routerLink="form">Hospital Civil</a>
+  </div>
+  <div class="sesion">
+    <p>Nombre: <b>Ejemplo</b></p>
+  </div>
+  <ul class="components">
+    <li>
+      <a routerLink="form/empleados">
+        <fa-icon [icon]="faUserFriends"></fa-icon>
+        Empleados</a
+      >
+    </li>
+    <li>
+      <a href="#">
+        <fa-icon [icon]="faAngry"></fa-icon>
+        Portfolio</a
+      >
+    </li>
+    <li>
+      <a href="#">
+        <fa-icon [icon]="faUserFriends"></fa-icon>
+        Contact</a
+      >
+    </li>
+  </ul>
+</nav>

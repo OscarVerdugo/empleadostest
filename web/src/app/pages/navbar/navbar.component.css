@@ -1,0 +1,15 @@
+
+.custom-btn{
+    margin: 0px 15px;
+}
+.navbar{
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    height: 50px;
+    background: #fff;
+    border-bottom: 1px solid rgb(209, 209, 209);
+    width: 100%; /* Full width */
+    z-index: 998;
+    display: flex;
+    justify-content: space-between;
+}
