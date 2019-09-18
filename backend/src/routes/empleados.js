@@ -4,9 +4,9 @@ const router = new Router();
 var sql = require("mssql");
 
 var config = {
-    server: 'DESKTOP-1E8J8UK',
+    server: 'DESKTOP-3687V8T',
     user: 'sa',
-    password: 'sa123',
+    password: '123',
     database: 'Empleados'
 }
 //DESKTOP-1E8J8UK
