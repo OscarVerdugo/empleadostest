@@ -3,7 +3,7 @@
     [hiddenSideBar]="hiddenSideBar"
   ></app-sidebar>
   <div id="content" [ngClass]="hiddenSideBar? '' : 'active'">
-    <app-navbar
+    <app-navbar 
       [hiddenSideBar]="hiddenSideBar"
       [moduleName]="moduleName"
       (hiddenEvent)="toggle($event)"

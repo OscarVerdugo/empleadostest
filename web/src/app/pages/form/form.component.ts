@@ -44,7 +44,6 @@ export class FormComponent implements OnInit {
     this.form.controls["r_date"].setValue(new Date());
   }
 
-  guardarDatos() {}
 
   openConfirmation(content, action, data) {
     let closeResult = false;
@@ -61,7 +60,7 @@ export class FormComponent implements OnInit {
                 this.eliminarEmpleado(data);
                 break;
               case "update":
-                this.editarEmpleado(data);
+                this.guardarEmpleado();
                 break;
               case "save":
                 this.guardarEmpleado();
