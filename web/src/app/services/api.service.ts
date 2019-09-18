@@ -26,8 +26,12 @@ export class ApiService {
     return this.http.delete(this.url+`empleados-delete${id}`).pipe(map(data => data));
   }
 
-  insert(emp){
-    return this.http.post(this.url+"empleados-post",{id:1}).pipe(map(data => data));
+  insert(n,pa,sa,fr,ur){;
+    return this.http.post(this.url+"empleados-post",{nombre:n,primer_apellido:pa,segundo_apellido:sa,fecha_registro:fr,usuario_registro:ur}).pipe(map(data => data));
+  }
+
+  update(id,n,pa,sa,fr,ur){;
+    return this.http.put(this.url+`empleados-put${id}`,{nombre:n,primer_apellido:pa,segundo_apellido:sa,fecha_registro:fr,usuario_registro:ur}).pipe(map(data => data));
   }
 
 

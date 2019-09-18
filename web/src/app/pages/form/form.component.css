@@ -1,0 +1,13 @@
+.table-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.table-header h3{
+    display: inline-block;
+}
+
+/* .table-header .form-group{
+    display: inline-block;
+
+} */

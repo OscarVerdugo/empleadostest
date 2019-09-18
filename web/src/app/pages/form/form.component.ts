@@ -1,108 +1,156 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit} from "@angular/core";
+import { FormBuilder, Validators } from "@angular/forms";
+import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
 import { ApiService } from "../../services/api.service";
+import { EventEmitterService } from "../../services/event-emitter.service";
 @Component({
-  selector: 'app-form',
-  templateUrl: './form.component.html',
-  styleUrls: ['./form.component.css']
+  selector: "app-form",
+  templateUrl: "./form.component.html",
+  styleUrls: ["./form.component.css"]
 })
 export class FormComponent implements OnInit {
-
-
   lstEmpleados = [];
   form: any;
   empleado = {};
-  constructor(private formBuilder: FormBuilder, private modalService: NgbModal, private api: ApiService) {
+  page: number = 1;
+  pageSize: number = 6;
+  filterName: string = "";
+  constructor(
+    private formBuilder: FormBuilder,
+    private modalService: NgbModal,
+    private api: ApiService,
+    private _eventEmitter: EventEmitterService
+  ) {
     this.form = this.formBuilder.group({
       id: [null],
       name: [null, Validators.required],
       f_lastname: [null, Validators.required],
       s_lastname: [null, Validators.required],
-      r_date: [new Date],
+      r_date: [new Date()],
       r_user: [null, Validators.required]
     });
   }
 
-
-
   ngOnInit() {
-    this.api.getAll().subscribe(data => {
-      if(data){
-        this.lstEmpleados = data;
-      }
-    });
+    this.select();
+    setTimeout(()=>{
+      this._eventEmitter.changeModule('Empleados');
+    },500);
   }
   limpiar() {
     console.log(this.form.controls);
     this.form.reset();
-    this.form.controls['status'].setValue(true);
-
+    this.form.controls["id"].setValue(null);
+    this.form.controls["r_date"].setValue(new Date());
   }
 
-  guardarDatos() {
-
-  }
 
   openConfirmation(content, action, data) {
     let closeResult = false;
     let reason = "";
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-      closeResult = result;
-      console.log(closeResult);
-      if (result) {
-        switch (action) {
-          case 'delete':
-              this.eliminarEmpleado(data);
-            break;
-          case 'update':
-            this.editarEmpleado(data);
-            break;
-          case 'save':
-            this.guardarEmpleado();
-            break;
+    this.modalService
+      .open(content, { ariaLabelledBy: "modal-basic-title" })
+      .result.then(
+        result => {
+          closeResult = result;
+          console.log(closeResult);
+          if (result) {
+            switch (action) {
+              case "delete":
+                this.eliminarEmpleado(data);
+                break;
+              case "update":
+                this.guardarEmpleado();
+                break;
+              case "save":
+                this.guardarEmpleado();
+                break;
+            }
+          }
+        },
+        reason => {
+          reason = `Dismissed ${this.getDismissReason(reason)}`;
         }
-      }
-    }, (reason) => {
-      reason = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+      );
   }
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
+      return "by pressing ESC";
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
+      return "by clicking on a backdrop";
     } else {
       return `with: ${reason}`;
     }
   }
 
+  eliminarEmpleado(emp) {
+    this.api.deleteOne(emp.id).subscribe(data => {
+      console.log(data);
+      if (!data["bError"]) {
+        let i = this.lstEmpleados.findIndex(x => x.id == emp.id);
+        if (i != -1) this.lstEmpleados[i].estatus = false;
+      }
+    });
+  }
 
-    eliminarEmpleado(emp){
-      this.api.deleteOne(emp.id).subscribe(data =>{
-        console.log(emp);
-      });
-      // this.api.insert(emp).subscribe(data =>{
-      //     console.log(data);
-      // });
+  editarEmpleado(emp) {
+    this.empleado = emp;
+    this.form.controls["id"].setValue(emp.id);
+    this.form.controls["name"].setValue(emp.nombre);
+    this.form.controls["f_lastname"].setValue(emp.primer_apellido);
+    this.form.controls["s_lastname"].setValue(emp.segundo_apellido);
+    this.form.controls["r_date"].setValue(emp.fecha_registro);
+    this.form.controls["r_user"].setValue(emp.usuario_registro);
+  }
+
+  guardarEmpleado() {
+    if (!this.form.controls["id"].value) {
+      //guardar
+      this.api
+        .insert(
+          this.form.controls["name"].value,
+          this.form.controls["f_lastname"].value,
+          this.form.controls["s_lastname"].value,
+          this.form.controls["r_date"].value,
+          this.form.controls["r_user"].value
+        )
+        .subscribe(d => {
+          if (!d["bError"]) {
+            this.select();
+          }
+        });
+    } else {
+      //actualizar
+      this.api
+        .update(
+          this.form.controls["id"].value,
+          this.form.controls["name"].value,
+          this.form.controls["f_lastname"].value,
+          this.form.controls["s_lastname"].value,
+          this.form.controls["r_date"].value,
+          this.form.controls["r_user"].value
+        )
+        .subscribe(d => {
+          console.log(d);
+          this.select();
+        });
     }
+  }
 
-    editarEmpleado(emp){
-      this.empleado = emp;
-      this.form.controls['id'].setValue(emp.id);
-      this.form.controls['name'].setValue(emp.nombre);
-      this.form.controls['f_lastname'].setValue(emp.primer_apellido);
-      this.form.controls['s_lastname'].setValue(emp.segundo_apellido);
-      this.form.controls['r_date'].setValue(emp.fecha_registro);
-      this.form.controls['r_user'].setValue(emp.usuario_registro);
-    }
+  select() {
+    this.api.getAll().subscribe(data => {
+      if (data) {
+        this.lstEmpleados = data;
+      }
+    });
+  }
 
-    guardarEmpleado(){
-
-    }
-
-
-
-
+  filterList(prop: string) {
+    if (this.filterName != null && this.filterName.length > 0)
+      return this.lstEmpleados.filter(
+        x => x[prop].toLowerCase().indexOf(this.filterName.toLowerCase()) > -1
+      );
+    else return this.lstEmpleados;
+  }
 }

@@ -8,11 +8,21 @@ import { AppComponent } from './app.component';
 import { FormComponent } from './pages/form/form.component';
 import { ApiService } from "./services/api.service";
 import { HttpClientModule } from '@angular/common/http';
+import { SidebarComponent } from './pages/sidebar/sidebar.component';
+import { MainComponent } from './pages/main/main.component';
+import { ContentComponent } from './pages/content/content.component';
+import { NavbarComponent } from './pages/navbar/navbar.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { EventEmitterService } from "../app/services/event-emitter.service";
 
 @NgModule({
   declarations: [
     AppComponent,
-    FormComponent
+    FormComponent,
+    SidebarComponent,
+    MainComponent,
+    ContentComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -20,9 +30,10 @@ import { HttpClientModule } from '@angular/common/http';
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FontAwesomeModule
   ],
-  providers: [ApiService],
+  providers: [ApiService,EventEmitterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

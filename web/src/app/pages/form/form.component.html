@@ -47,12 +47,19 @@
         </div>
     </div>
 
-    <button type="button" class="btn btn-secondary m-1" [disabled]="form.invalid" (click)="openConfirmation(saveConfirmation,'save',e)">Guardar</button>
+    <button type="button" class="btn btn-secondary m-1" [disabled]="form.invalid" (click)="form.controls['id'].value ? openConfirmation(updateConfirmation,'update',e) : openConfirmation(saveConfirmation,'save',e)">Guardar</button>
     <button type="button" class="btn btn-outline-secondary m-1" (click)="limpiar()">{{form.controls['id'].value ? 'Nuevo':'Limpiar'}}</button>
+</form>
+    <br>
+    <br>
+    <div class="table-header">
+        <h2>Empleados</h2>
+        <div class="form-group col-md-4">
+            <label>Buscar por Nombre</label>
+            <input class="form-control" [(ngModel)]="filterName">
+        </div>
+    </div>
 
-    <br>
-    <br>
-    <h2>Empleados</h2>
     <table class="table table-hover table-bordeless">
         <thead class="thead-dark">
             <tr>
@@ -66,23 +73,27 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let e of lstEmpleados">
+            <tr *ngFor="let e of filterList('nombre') | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
                 <td>{{e.id}}</td>
                 <td>{{e.nombre}}</td>
                 <td>{{e.primer_apellido}}</td>
                 <td>{{e.segundo_apellido}}</td>
                 <td>{{e.usuario_registro}}</td>
-                <td>{{e.estatus}}</td>
+                <td>{{e.estatus ? 'Activo': 'Inactivo'}}</td>
                 <td>
-                        <button class="btn btn-outline-secondary m-1 btn-sm" (click)="openConfirmation(updateConfirmation,'update',e)">Editar</button>
-                        <button class="btn btn-outline-danger m-1 btn-sm" (click)="openConfirmation(deleteConfirmation,'delete',e)" >Eliminar</button>
+                        <button class="btn btn-outline-secondary m-1 btn-sm" (click)="editarEmpleado(e)">Editar</button>
+                        <button class="btn btn-outline-danger m-1 btn-sm" (click)="openConfirmation(deleteConfirmation,'delete',e)" [disabled]="!e.estatus">Eliminar</button>
 
                 </td>
             </tr>
 
         </tbody>
     </table>
-</form>
+    <ngb-pagination [collectionSize]="filterList('nombre').length" [pageSize]="pageSize" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
+
+
+
+
 
 
 
@@ -114,7 +125,7 @@
   </div>
   <div class="modal-body">
     <p><strong>Estás seguro de actualizar los datos del empleado <span class="text-primary">{{empleado.name}}</span> ?</strong></p>
-    <p>Toda la información modificada asosiada a él se eliminará permanentemente.
+    <p>Toda la información que fue modificada asosiada a él se eliminará permanentemente.
     <span class="text-danger">Esta operación no se puede revertir.</span>
     </p>
   </div>

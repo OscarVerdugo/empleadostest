@@ -1,0 +1,26 @@
+.wrapper {
+  display: flex;
+  width: 100%;
+}
+
+#content {
+  width: 100%;
+  min-height: 100vh;
+  transition: all 0.3s;
+  position: absolute;
+}
+
+#content.active {
+  transition: all 0.3s;
+  padding-left: 250px;
+}
+
+#content.active > app-navbar{
+  padding-right: 250px !important;
+  transition: all 0.3s;
+}
+
+#routing {
+  padding: 20px;
+  margin-top: 50px;
+}

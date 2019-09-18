@@ -4,7 +4,11 @@ const router = new Router();
 var sql = require("mssql");
 
 var config = {
+<<<<<<< HEAD
     server: 'DESKTOP-3687V8T',
+=======
+    server: 'DESKTOP-Q43I8GK\\\SQLEXPRESS',
+>>>>>>> 9844bb6b12c6b5bf734e91221151fcf11bdb4011
     user: 'sa',
     password: '123',
     database: 'Empleados'
@@ -30,9 +34,9 @@ router.get('/empleados-get', (req, res) => {
 });;
 
 router.post('/empleados-post', (req, res) => {
-    const { nombre, primer_apellido, segundo_apellido, fecha_registro, usuario_registro, estatus } = req.body;
+    const { nombre, primer_apellido, segundo_apellido, fecha_registro, usuario_registro } = req.body;
     const newEmpleado = { ...req.body };
-    if (nombre && primer_apellido && segundo_apellido && fecha_registro && usuario_registro && estatus) {
+    if (nombre && primer_apellido && segundo_apellido && fecha_registro && usuario_registro) {
         new sql.ConnectionPool(config).connect().then(pool => {
             return pool.request().query(`insert into dbo.Empleados(nombre, primer_apellido, segundo_apellido, fecha_registro, usuario_registro) values ('${nombre}','${primer_apellido}','${segundo_apellido}','${fecha_registro}','${usuario_registro}')`);
         }).then(result => {
@@ -43,7 +47,7 @@ router.post('/empleados-post', (req, res) => {
 
             
 
-            res.status(200).json(rows);
+            res.status(200).json({bError:false});
             sql.close();
         }).catch(err => {
             res.status(500).send({ message: `${err}` });
@@ -58,15 +62,15 @@ router.put('/empleados-put:id', (req, res) => {
     const { id } = req.params;
     req.params.id = parseInt(req.params.id);
     console.dir(req.params.id);
-    const { nombre, primer_apellido, segundo_apellido, fecha_registro, usuario_registro, estatus } = req.body;
+    const { nombre, primer_apellido, segundo_apellido, fecha_registro, usuario_registro } = req.body;
     console.dir(req.body);
-    if (nombre || primer_apellido || segundo_apellido || fecha_registro || usuario_registro || estatus) {
+    if (nombre || primer_apellido || segundo_apellido || fecha_registro || usuario_registro) {
         new sql.ConnectionPool(config).connect().then(pool => {
             return pool.request().query(`UPDATE dbo.Empleados SET nombre = '${nombre}', primer_apellido = '${primer_apellido}', segundo_apellido = '${segundo_apellido}', fecha_registro = '${fecha_registro}', usuario_registro = '${usuario_registro}' WHERE id = ${req.params.id}`);
         }).then(result => {
             let rows = result.recordset;
             res.setHeader('Access-Control-Allow-Origin', '*');
-            res.status(200).json(rows);
+            res.status(200).json({bError:false});
             sql.close();
         }).catch(err => {
             res.status(500).send({ message: `${err}`,bError :true });
@@ -88,7 +92,7 @@ router.delete('/empleados-delete:id', (req, res) => {
         let rows = result.recordset;
         res.setHeader('Access-Control-Allow-Origin', '*');
 
-        res.status(200).json(rows);
+        res.status(200).json({bError:false});
         sql.close();
     }).catch(err => {
         res.status(500).send({ message: `${err}`,bError :true });
