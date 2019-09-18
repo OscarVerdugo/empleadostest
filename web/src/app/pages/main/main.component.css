@@ -15,6 +15,11 @@
   padding-left: 250px;
 }
 
+#content.active > app-navbar{
+  padding-right: 250px !important;
+  transition: all 0.3s;
+}
+
 #routing {
   padding: 20px;
   margin-top: 50px;

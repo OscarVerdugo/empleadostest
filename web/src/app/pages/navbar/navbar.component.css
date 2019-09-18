@@ -11,5 +11,5 @@
     width: 100%; /* Full width */
     z-index: 998;
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
 }
