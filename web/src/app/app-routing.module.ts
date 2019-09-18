@@ -5,13 +5,13 @@ import { ContentComponent } from "../app/pages/content/content.component";
 const routes: Routes = [
   { path: "dashboard", component: FormComponent },
   {
-    path: "form",
+    path: "auth",
     component: ContentComponent,
     children: [
-      { path: "empleados", component: FormComponent },
-      { path: "",redirectTo: "/form", pathMatch: "full"}]
+      { path: "cat/:cat", component: FormComponent },
+      { path: "",redirectTo: "/auth", pathMatch: "full"}]
   },
-  { path: "", redirectTo: "/form", pathMatch: "full" }
+  { path: "", redirectTo: "/auth", pathMatch: "full" }
 ];
 
 @NgModule({

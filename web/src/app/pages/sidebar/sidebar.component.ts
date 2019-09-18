@@ -1,5 +1,6 @@
 import { Component, OnInit,Input, Output, EventEmitter } from '@angular/core';
 import { faAmbulance,faUserFriends,faAngry } from "@fortawesome/free-solid-svg-icons";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,7 +14,7 @@ export class SidebarComponent implements OnInit {
   @Input() hiddenSideBar : boolean;
   @Output() hiddenEvent = new EventEmitter<boolean>();
 
-  constructor() { }
+  constructor(public route: ActivatedRoute) { }
 
   ngOnInit() {
   }

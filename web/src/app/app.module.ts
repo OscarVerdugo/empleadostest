@@ -14,6 +14,7 @@ import { ContentComponent } from './pages/content/content.component';
 import { NavbarComponent } from './pages/navbar/navbar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { EventEmitterService } from "../app/services/event-emitter.service";
+import { NonePipe } from './util/none.pipe';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { EventEmitterService } from "../app/services/event-emitter.service";
     SidebarComponent,
     MainComponent,
     ContentComponent,
-    NavbarComponent
+    NavbarComponent,
+    NonePipe
   ],
   imports: [
     BrowserModule,

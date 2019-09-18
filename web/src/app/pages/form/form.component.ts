@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from "@angular/forms";
 import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
 import { ApiService } from "../../services/api.service";
 import { EventEmitterService } from "../../services/event-emitter.service";
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: "app-form",
   templateUrl: "./form.component.html",
@@ -19,7 +20,8 @@ export class FormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
     private api: ApiService,
-    private _eventEmitter: EventEmitterService
+    private _eventEmitter: EventEmitterService,
+    private route: ActivatedRoute
   ) {
     this.form = this.formBuilder.group({
       id: [null],
@@ -36,6 +38,10 @@ export class FormComponent implements OnInit {
     setTimeout(()=>{
       this._eventEmitter.changeModule('Empleados');
     },500);
+
+    this.route.params.subscribe(data =>{
+      console.log(data);
+    })
   }
   limpiar() {
     console.log(this.form.controls);
