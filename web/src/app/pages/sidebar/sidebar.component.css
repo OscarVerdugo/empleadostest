@@ -1,70 +1,65 @@
-
 a,
 a:hover,
 a:focus {
-    color: inherit;
-    text-decoration: none;
-    transition: all 0.3s;
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.3s;
 }
 
 #sidebar {
-    width: 250px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    z-index: 999;
-    /* background: linear-gradient(to bottom,#22A6B3,#00A9C3); */
-    background: var(--primary);
-    color: #ffffffbe;
-    transition: all 0.3s;
+  width: 250px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 999;
+  /* background: linear-gradient(to bottom,#22A6B3,#00A9C3); */
+  background: var(--primary);
+  color: #ffffffbe;
+  transition: all 0.3s;
 }
 
-#sidebar .sesion{
-    display: flex;
-    margin-bottom: 30px;
-    padding-left: 30px;
+#sidebar .sesion {
+  display: flex;
+  margin-bottom: 30px;
+  padding-left: 30px;
 }
 
 #sidebar.active {
-    margin-left: -250px;
+  margin-left: -250px;
 }
 
 #sidebar .sidebar-header {
-    padding: 20px;
-    background: var(--primary);
-    font-size: 2em;
+  padding: 20px;
+  background: var(--primary);
+  font-size: 2em;
 }
 
 #sidebar ul.components {
-    padding: 20px 0px;
-    list-style: none;
+  padding: 20px 0px;
+  list-style: none;
 }
 
 #sidebar ul p {
-    color: #fff !important;
-    padding: 10px;
+  color: #fff !important;
+  padding: 10px;
 }
 
 #sidebar ul li a {
-    padding: 15px 30px;
-    font-size: 1.1em;
-    display: block;
+  padding: 15px 30px;
+  font-size: 1.1em;
+  display: block;
 }
-#sidebar ul li a fa-icon {
-    padding-right: 15px;
+
+#sidebar ul li a.active {
+  background-color: rgba(255, 255, 255, 0.363);
+  color: var(--light);
 }
 
 #sidebar ul li a:hover {
-    /* font-weight: bold; */
-    background-color: rgba(255, 255, 255, 0.137);
-    color:var(--light);
-    transition: all 0.3s;
-    
+  /* font-weight: bold; */
+  background-color: rgba(255, 255, 255, 0.137);
+  color: var(--light);
+  transition: all 0.3s;
+
 }
-
-
-
-
-
-

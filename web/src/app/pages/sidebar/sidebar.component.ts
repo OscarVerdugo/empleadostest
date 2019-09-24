@@ -1,6 +1,5 @@
 import { Component, OnInit,Input, Output, EventEmitter } from '@angular/core';
-import { faAmbulance,faUserFriends,faAngry } from "@fortawesome/free-solid-svg-icons";
-import { ActivatedRoute } from '@angular/router';
+import { FormService } from "../../services/form.service";
 
 @Component({
   selector: 'app-sidebar',
@@ -8,19 +7,17 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  faAmbulance = faAmbulance;
-  faUserFriends = faUserFriends;
-  faAngry = faAngry;
+
   @Input() hiddenSideBar : boolean;
   @Output() hiddenEvent = new EventEmitter<boolean>();
 
-  constructor(public route: ActivatedRoute) { }
+  constructor(private c: FormService) { }
 
   ngOnInit() {
+    this.c.init();
   }
 
   toggle(){
     this.hiddenEvent.emit(!this.hiddenSideBar);
   }
-
 }

@@ -1,17 +1,21 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { FormComponent } from "./pages/form/form.component";
-import { ContentComponent } from "../app/pages/content/content.component";
+import { MainComponent } from "./pages/main/main.component";
+import { LoginComponent } from "./pages/login/login.component";
+import { AuthorizeGuard } from "./services/guards/authorize.guard";
 const routes: Routes = [
-  { path: "dashboard", component: FormComponent },
   {
-    path: "auth",
-    component: ContentComponent,
+    path:'login',
+    component:LoginComponent
+  },{
+    path: "auth",//authorized
+    component: MainComponent,
     children: [
-      { path: "cat/:cat", component: FormComponent },
-      { path: "",redirectTo: "/auth", pathMatch: "full"}]
+      { path: "c/:catalogue", component: FormComponent, canActivate: [AuthorizeGuard] }]
   },
-  { path: "", redirectTo: "/auth", pathMatch: "full" }
+  { path: "", redirectTo: "/login", pathMatch: "full" },
+  { path: "**", redirectTo: "/auth", pathMatch: "full" }
 ];
 
 @NgModule({

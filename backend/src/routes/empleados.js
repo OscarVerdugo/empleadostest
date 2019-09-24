@@ -4,14 +4,7 @@ const router = new Router();
 var sql = require("mssql");
 
 var config = {
-<<<<<<< HEAD
-    server: 'DESKTOP-3687V8T',
-=======
-    server: 'DESKTOP-Q43I8GK\\\SQLEXPRESS',
->>>>>>> 9844bb6b12c6b5bf734e91221151fcf11bdb4011
-    user: 'sa',
-    password: '123',
-    database: 'Empleados'
+    c
 }
 //DESKTOP-1E8J8UK
 

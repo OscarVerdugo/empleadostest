@@ -1,53 +1,54 @@
 import { Component, OnInit} from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
-import { ApiService } from "../../services/api.service";
-import { EventEmitterService } from "../../services/event-emitter.service";
+import { ApiService } from "../../services/api/api.service";
 import { ActivatedRoute } from '@angular/router';
+import Catalogue from 'src/app/services/models/Form';
+import { FormService } from "../../services/form.service";
 @Component({
   selector: "app-form",
   templateUrl: "./form.component.html",
   styleUrls: ["./form.component.css"]
 })
 export class FormComponent implements OnInit {
-  lstEmpleados = [];
-  form: any;
-  empleado = {};
+  //Pagination
   page: number = 1;
   pageSize: number = 6;
+
+  form: any; //form model
+
+  model:Catalogue;
+
+  lst = [];
   filterName: string = "";
   constructor(
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
     private api: ApiService,
-    private _eventEmitter: EventEmitterService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private forms: FormService
   ) {
-    this.form = this.formBuilder.group({
-      id: [null],
-      name: [null, Validators.required],
-      f_lastname: [null, Validators.required],
-      s_lastname: [null, Validators.required],
-      r_date: [new Date()],
-      r_user: [null, Validators.required]
-    });
   }
 
   ngOnInit() {
-    this.select();
-    setTimeout(()=>{
-      this._eventEmitter.changeModule('Empleados');
-    },500);
+    // this.select();
+    //Obtener el calogo de las route.params
+    this.route.params.subscribe(p => {
+      this.model = this.forms.lstForms.find(x => x.cName == p.catalogue.toString());//seleccionar el modelo
+      let formConfig: {[k: string]: any} = {};
+      for(let input of this.model.lstInputs){//Cargando a form los inputs
+        formConfig[input.cName] = [input.aValue,Validators.required];
+      }
+      formConfig['id'] = [null,Validators.required];//estos van de cincho
+      formConfig['estatus'] = [true,Validators.required];//estos van de cincho
 
-    this.route.params.subscribe(data =>{
-      console.log(data);
-    })
+      this.form = this.formBuilder.group(formConfig);//agrego los campos al form
+    });
   }
-  limpiar() {
-    console.log(this.form.controls);
+  resetForm():void {
     this.form.reset();
-    this.form.controls["id"].setValue(null);
-    this.form.controls["r_date"].setValue(new Date());
+    this.form.controls["id"].setValue(null);//null para las validaciones de 'actualizar' != null y 'nuevo' == null
+    this.form.controls["estatus"].setValue(true);
   }
 
 
@@ -59,7 +60,6 @@ export class FormComponent implements OnInit {
       .result.then(
         result => {
           closeResult = result;
-          console.log(closeResult);
           if (result) {
             switch (action) {
               case "delete":
@@ -91,72 +91,68 @@ export class FormComponent implements OnInit {
   }
 
   eliminarEmpleado(emp) {
-    this.api.deleteOne(emp.id).subscribe(data => {
-      console.log(data);
-      if (!data["bError"]) {
-        let i = this.lstEmpleados.findIndex(x => x.id == emp.id);
-        if (i != -1) this.lstEmpleados[i].estatus = false;
-      }
-    });
+    // this.api.deleteOne(emp.id).subscribe(data => {
+      
+    // });
   }
 
   editarEmpleado(emp) {
-    this.empleado = emp;
-    this.form.controls["id"].setValue(emp.id);
-    this.form.controls["name"].setValue(emp.nombre);
-    this.form.controls["f_lastname"].setValue(emp.primer_apellido);
-    this.form.controls["s_lastname"].setValue(emp.segundo_apellido);
-    this.form.controls["r_date"].setValue(emp.fecha_registro);
-    this.form.controls["r_user"].setValue(emp.usuario_registro);
+    // this.empleado = emp;
+    // this.form.controls["id"].setValue(emp.id);
+    // this.form.controls["name"].setValue(emp.nombre);
+    // this.form.controls["f_lastname"].setValue(emp.primer_apellido);
+    // this.form.controls["s_lastname"].setValue(emp.segundo_apellido);
+    // this.form.controls["r_date"].setValue(emp.fecha_registro);
+    // this.form.controls["r_user"].setValue(emp.usuario_registro);
   }
 
   guardarEmpleado() {
     if (!this.form.controls["id"].value) {
       //guardar
-      this.api
-        .insert(
-          this.form.controls["name"].value,
-          this.form.controls["f_lastname"].value,
-          this.form.controls["s_lastname"].value,
-          this.form.controls["r_date"].value,
-          this.form.controls["r_user"].value
-        )
-        .subscribe(d => {
-          if (!d["bError"]) {
-            this.select();
-          }
-        });
-    } else {
-      //actualizar
-      this.api
-        .update(
-          this.form.controls["id"].value,
-          this.form.controls["name"].value,
-          this.form.controls["f_lastname"].value,
-          this.form.controls["s_lastname"].value,
-          this.form.controls["r_date"].value,
-          this.form.controls["r_user"].value
-        )
-        .subscribe(d => {
-          console.log(d);
-          this.select();
-        });
+    //   this.api
+    //     .insert(
+    //       this.form.controls["name"].value,
+    //       this.form.controls["f_lastname"].value,
+    //       this.form.controls["s_lastname"].value,
+    //       this.form.controls["r_date"].value,
+    //       this.form.controls["r_user"].value
+    //     )
+    //     .subscribe(d => {
+    //       if (!d["bError"]) {
+    //         this.select();
+    //       }
+    //     });
+    // } else {
+    //   //actualizar
+    //   this.api
+    //     .update(
+    //       this.form.controls["id"].value,
+    //       this.form.controls["name"].value,
+    //       this.form.controls["f_lastname"].value,
+    //       this.form.controls["s_lastname"].value,
+    //       this.form.controls["r_date"].value,
+    //       this.form.controls["r_user"].value
+    //     )
+    //     .subscribe(d => {
+    //       console.log(d);
+    //       this.select();
+    //     });
     }
   }
 
   select() {
-    this.api.getAll().subscribe(data => {
-      if (data) {
-        this.lstEmpleados = data;
-      }
-    });
+    // this.api.getAll().subscribe(data => {
+    //   if (data) {
+    //     // this.lstEmpleados = data;
+    //   }
+    // });
   }
 
-  filterList(prop: string) {
-    if (this.filterName != null && this.filterName.length > 0)
-      return this.lstEmpleados.filter(
-        x => x[prop].toLowerCase().indexOf(this.filterName.toLowerCase()) > -1
-      );
-    else return this.lstEmpleados;
-  }
+  // filterList(prop: string) {
+  //   if (this.filterName != null && this.filterName.length > 0)
+  //     return this.lstEmpleados.filter(
+  //       x => x[prop].toLowerCase().indexOf(this.filterName.toLowerCase()) > -1
+  //     );
+  //   else return this.lstEmpleados;
+  // }
 }

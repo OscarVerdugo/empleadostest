@@ -1,23 +1,23 @@
-<h2>Datos del Empleado</h2>
-<form [formGroup]="form" (submit)="guardarDatos()">
-    <div class="form-row">
+<h2>{{model.oTags.cTitle}} - {{(form.controls['id'].value ? 'Editar' : 'Nuev'+model.oTags.cEnd) + " "+model.oTags.cSingular}}</h2>
+<form [formGroup]="form" (submit)="guardarDatos()" *ngIf="form">
+    <!-- <div class="form-row">
         <div class="form-group col-md-2">
             <label for="id">Id</label>
             <input class="form-control" formControlName="id" readonly>
         </div>
-    </div>
+    </div> -->
     <div class=" form-row">
-        <div class="form-group col-md-4">
-            <label for="name">Nombres</label>
-            <input class="form-control" formControlName="name"
-                [className]="(form.controls['name'].invalid && (form.controls['name'].dirty || form.controls['name'].touched))?'form-control is-invalid' : 'form-control'"
+        <div class="form-group col-md-4" *ngFor="let input of model.lstInputs">
+            <label>{{input.cLabel}}</label>
+            <input class="form-control" [formControlName]="input.cName"
+                [className]="(form.controls[input.cName].invalid && (form.controls[input.cName].dirty || form.controls[input.cName].touched))?'form-control is-invalid' : 'form-control'"
                 >
             <div class="invalid-feedback">
-                Nombre invalido.
+                Revisar campo.
             </div>
         </div>
 
-        <div class="form-group col-md-4">
+        <!-- <div class="form-group col-md-4">
             <label for="f_lastname">Primer Apellido</label>
             <input class="form-control" formControlName="f_lastname"
                 [className]="(form.controls['f_lastname'].invalid && (form.controls['f_lastname'].dirty || form.controls['f_lastname'].touched))?'form-control is-invalid' : 'form-control'">
@@ -32,11 +32,11 @@
             <div class="invalid-feedback">
                 Segundo Apellido invalido.
             </div>
-        </div>
+        </div> -->
     </div>
 
 
-    <div class="form-row">
+    <!-- <div class="form-row">
         <div class="form-group col-md-6">
             <label for="r_user">Usuario de Registro</label>
             <input type="text" class="form-control" formControlName="r_user"
@@ -45,15 +45,15 @@
                 Usuario invalido.
             </div>
         </div>
-    </div>
+    </div> -->
 
     <button type="button" class="btn btn-secondary m-1" [disabled]="form.invalid" (click)="form.controls['id'].value ? openConfirmation(updateConfirmation,'update',e) : openConfirmation(saveConfirmation,'save',e)">Guardar</button>
-    <button type="button" class="btn btn-outline-secondary m-1" (click)="limpiar()">{{form.controls['id'].value ? 'Nuevo':'Limpiar'}}</button>
+    <button type="button" class="btn btn-outline-secondary m-1" (click)="resetForm()">{{form.controls['id'].value ? 'Nuevo':'Limpiar'}}</button>
 </form>
     <br>
     <br>
     <div class="table-header">
-        <h2>Empleados</h2>
+        <h2>{{model.oTags.cTitle}}</h2>
         <div class="form-group col-md-4">
             <label>Buscar por Nombre</label>
             <input class="form-control" [(ngModel)]="filterName">
@@ -73,7 +73,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let e of filterList('nombre') | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+            <!-- <tr *ngFor="let e of filterList('nombre') | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
                 <td>{{e.id}}</td>
                 <td>{{e.nombre}}</td>
                 <td>{{e.primer_apellido}}</td>
@@ -85,11 +85,11 @@
                         <button class="btn btn-outline-danger m-1 btn-sm" (click)="openConfirmation(deleteConfirmation,'delete',e)" [disabled]="!e.estatus">Eliminar</button>
 
                 </td>
-            </tr>
+            </tr> -->
 
         </tbody>
     </table>
-    <ngb-pagination [collectionSize]="filterList('nombre').length" [pageSize]="pageSize" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
+    <!-- <ngb-pagination [collectionSize]="filterList('nombre').length" [pageSize]="pageSize" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination> -->
 
 
 
@@ -105,7 +105,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <p><strong>Estás seguro de eliminar al empleado <span class="text-primary">{{empleado.name}}</span> ?</strong></p>
+    <p><strong>Estás seguro de eliminar este registro <span class="text-primary"></span> ?</strong></p>
     <p>Toda la información asosiada a él se eliminará permanentemente.
     <span class="text-danger">Esta operación no se puede revertir.</span>
     </p>
@@ -124,7 +124,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <p><strong>Estás seguro de actualizar los datos del empleado <span class="text-primary">{{empleado.name}}</span> ?</strong></p>
+    <p><strong>Estás seguro de actualizar los datos de este registro <span class="text-primary"></span> ?</strong></p>
     <p>Toda la información que fue modificada asosiada a él se eliminará permanentemente.
     <span class="text-danger">Esta operación no se puede revertir.</span>
     </p>
@@ -144,7 +144,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <p>Estás seguro de guardar este empleado ?</p>
+          <p>Estás seguro de guardar este registro ?</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-light" (click)="modal.dismiss('Close click')">Cerrar</button>

@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule  } from "@angular/forms"
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormComponent } from './pages/form/form.component';
-import { ApiService } from "./services/api.service";
+import { ApiService } from "./services/api/api.service";
 import { HttpClientModule } from '@angular/common/http';
 import { SidebarComponent } from './pages/sidebar/sidebar.component';
 import { MainComponent } from './pages/main/main.component';
@@ -15,6 +15,9 @@ import { NavbarComponent } from './pages/navbar/navbar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { EventEmitterService } from "../app/services/event-emitter.service";
 import { NonePipe } from './util/none.pipe';
+import { LoginComponent } from './pages/login/login.component';
+import { AuthService } from './services/authentication/auth.service';
+import { Keys } from "./services/api/keys";
 
 @NgModule({
   declarations: [
@@ -24,7 +27,8 @@ import { NonePipe } from './util/none.pipe';
     MainComponent,
     ContentComponent,
     NavbarComponent,
-    NonePipe
+    NonePipe,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +39,7 @@ import { NonePipe } from './util/none.pipe';
     HttpClientModule,
     FontAwesomeModule
   ],
-  providers: [ApiService,EventEmitterService],
+  providers: [ApiService,EventEmitterService,AuthService,Keys],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

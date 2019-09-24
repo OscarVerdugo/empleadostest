@@ -5,12 +5,11 @@
   <div id="content" [ngClass]="hiddenSideBar? '' : 'active'">
     <app-navbar 
       [hiddenSideBar]="hiddenSideBar"
-      [moduleName]="moduleName"
       (hiddenEvent)="toggle($event)"
     ></app-navbar>
 
     <div id="routing">
-            <router-outlet (Navigate)="navigate($event)"></router-outlet>
+            <router-outlet></router-outlet>
     </div>
   </div>
 </div>

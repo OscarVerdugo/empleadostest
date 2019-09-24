@@ -24,7 +24,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "./node_modules/@fortawesome/fontawesome-free/css/all.css"
             ],
             "scripts": []
           },
@@ -89,12 +90,7 @@
               "src/assets"
             ],
             "styles": [
-<<<<<<< HEAD
-              "src/styles.css",
-              "../node_modules/@fortawesome/fontawesome-free/css/all.css"
-=======
-              "src/styles.scss"
->>>>>>> b16024645422e9de909b9818b156a3e49344fa22
+              "src/styles.css"
             ],
             "scripts": []
           }
