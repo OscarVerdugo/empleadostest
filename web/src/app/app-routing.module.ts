@@ -12,7 +12,8 @@ const routes: Routes = [
     path: "auth",//authorized
     component: MainComponent,
     children: [
-      { path: "c/:catalogue", component: FormComponent, canActivate: [AuthorizeGuard] }]
+      { path: "c/:catalogue", component: FormComponent }]
+      // , canActivate: [AuthorizeGuard]
   },
   { path: "", redirectTo: "/login", pathMatch: "full" },
   { path: "**", redirectTo: "/auth", pathMatch: "full" }

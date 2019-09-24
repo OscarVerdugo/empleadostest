@@ -9,6 +9,7 @@ export interface Form {
     cIcon:string;
     oTags:Tags;
     bAdmin:boolean;
+    iBuscable:number;
 }
 
 export default Form;

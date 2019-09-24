@@ -39,7 +39,8 @@ export class FormService {
           cPlural:'turnos',
           cTitle:'Turnos',
           cEnd:'o'
-        } as Tags
+        } as Tags,
+        iBuscable:0,
       } as Form,
       {
         cName:'areas',//------------------------------------------------------------------------------------------------
@@ -57,12 +58,59 @@ export class FormService {
         ],
         lstCombos:[],
         oTags:{
-          cSingular:'area',
-          cPlural:'areas',
-          cTitle:'Areas',
+          cSingular:'área',
+          cPlural:'áreas',
+          cTitle:'Áreas',
           cEnd:'a'
-        } as Tags
+        } as Tags,
+        iBuscable:0,
       } as Form,
+      {
+        cName:'subareas',//------------------------------------------------------------------------------------------------
+        cIcon:'fa fa-flag',
+        bAdmin:true,
+        lstInputs:[
+          {
+            cName:'cDescripcion',
+            cType:'text',
+            aValue:'',
+            cLabel:'Descripción',
+            oPipe: NonePipe,
+            cPipeProps:'',
+          } as Input
+        ],
+        lstCombos:[],
+        oTags:{
+          cSingular:'subárea',
+          cPlural:'subáreas',
+          cTitle:'Subáreas',
+          cEnd:'a'
+        } as Tags,
+        iBuscable:0,
+      } as Form ,
+      {
+        cName:'incidencias',//------------------------------------------------------------------------------------------------
+        cIcon:'fa fa-exclamation',
+        bAdmin:true,
+        lstInputs:[
+          {
+            cName:'cDescripcion',
+            cType:'text',
+            aValue:'',
+            cLabel:'Descripción',
+            oPipe: NonePipe,
+            cPipeProps:'',
+          } as Input
+        ],
+        lstCombos:[],
+        oTags:{
+          cSingular:'incidencia',
+          cPlural:'incidencias',
+          cTitle:'Incidencias',
+          cEnd:'a'
+        } as Tags,
+        iBuscable:0,
+      } as Form
     )
   }
 }

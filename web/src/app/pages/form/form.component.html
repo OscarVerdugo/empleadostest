@@ -55,20 +55,15 @@
     <div class="table-header">
         <h2>{{model.oTags.cTitle}}</h2>
         <div class="form-group col-md-4">
-            <label>Buscar por Nombre</label>
-            <input class="form-control" [(ngModel)]="filterName">
+            <label>Buscar por {{model.lstInputs[model.iBuscable].cLabel}}</label>
+            <input class="form-control" [(ngModel)]="filter">
         </div>
     </div>
 
     <table class="table table-hover table-bordeless">
         <thead class="thead-dark">
             <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>P. Apellido</th>
-                <th>S. Apellido</th>
-                <th>Usuario Registro</th>
-                <th>Estatus</th>
+                <th *ngFor="let col of  model.lstInputs">{{col.cLabel}}</th>
                 <th>Acción</th>
             </tr>
         </thead>
@@ -89,6 +84,7 @@
 
         </tbody>
     </table>
+    <p class="text-center" style="color: #7f8c8d" *ngIf="lst.length == 0">Sin registros...</p>
     <!-- <ngb-pagination [collectionSize]="filterList('nombre').length" [pageSize]="pageSize" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination> -->
 
 
