@@ -1,5 +1,5 @@
 export class Keys{
-    apiUrl:string = "http://localhost:5000/";
+    apiUrl:string = "https://8ca8fdda.ngrok.io/";
 }
 
 export default Keys;

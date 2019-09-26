@@ -18,6 +18,7 @@ export class FormComponent implements OnInit {
   form: any; //form model
 
   model:Catalogue;
+  combos:any = {};
 
   lst = [];
   filterName: string = "";
@@ -43,6 +44,12 @@ export class FormComponent implements OnInit {
       formConfig['estatus'] = [true,Validators.required];//estos van de cincho
 
       this.form = this.formBuilder.group(formConfig);//agrego los campos al form
+
+      for(let cb of this.model.lstCombos){
+        this.api.select("token",1,2,this.model.cName).subscribe(lst =>{
+          this.combos[this.model.cName] = lst.data; //todo
+        });
+      }
     });
   }
   resetForm():void {
@@ -63,13 +70,13 @@ export class FormComponent implements OnInit {
           if (result) {
             switch (action) {
               case "delete":
-                this.eliminarEmpleado(data);
+                this.delete(data);
                 break;
               case "update":
-                this.guardarEmpleado();
+                this.save();
                 break;
               case "save":
-                this.guardarEmpleado();
+                this.save();
                 break;
             }
           }
@@ -90,13 +97,13 @@ export class FormComponent implements OnInit {
     }
   }
 
-  eliminarEmpleado(emp) {
+  delete(emp):void {
     // this.api.deleteOne(emp.id).subscribe(data => {
       
     // });
   }
 
-  editarEmpleado(emp) {
+  edit(emp):void {
     // this.empleado = emp;
     // this.form.controls["id"].setValue(emp.id);
     // this.form.controls["name"].setValue(emp.nombre);
@@ -106,7 +113,7 @@ export class FormComponent implements OnInit {
     // this.form.controls["r_user"].setValue(emp.usuario_registro);
   }
 
-  guardarEmpleado() {
+  save():void {
     if (!this.form.controls["id"].value) {
       //guardar
     //   this.api
