@@ -1,0 +1,8 @@
+{
+  "name": "mssql",
+  "user": "sa",
+  "password": "123",
+  "connector": "loopback-connector-mssql",
+  "host": "localhost",
+  "database": "IncidenciasDB"
+}
