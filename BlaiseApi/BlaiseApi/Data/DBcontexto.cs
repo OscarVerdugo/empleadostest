@@ -16,7 +16,13 @@ namespace BlaiseApi.Data
 
         }
         public DbSet<Turno> Turnos { get; set; }
-
+        public DbSet<Area> Areas { get; set; }
+        public DbSet<TipoIncidentes> TipoIncidentes { get; set; }
+        public DbSet<SubArea> SubAreas { get; set; }
+        public DbSet<TipoPersonal> TipoPersonals { get; set; }
+        public DbSet<Foto> Fotos { get; set; }
+        public DbSet<Personal> Personals { get; set; }
+        public DbSet<Correo> Correos { get; set; }
 
     }
 }
