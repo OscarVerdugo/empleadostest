@@ -1,7 +1,8 @@
 export interface Combo{
-    name:string;
-    display:string;
-    label:string;
+    cTable:string;
+    cDisplay:string;
+    cLabel:string;
+    cName:string;
 }
 
 export default Combo;

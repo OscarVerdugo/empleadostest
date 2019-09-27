@@ -18,7 +18,7 @@ export class FormComponent implements OnInit {
   form: any; //form model
 
   model:Catalogue;
-  combos:any = {};
+  combosStore:any = {};
 
   lst = [];
   filterName: string = "";
@@ -40,21 +40,24 @@ export class FormComponent implements OnInit {
       for(let input of this.model.lstInputs){//Cargando a form los inputs
         formConfig[input.cName] = [input.aValue,Validators.required];
       }
-      formConfig['id'] = [null,Validators.required];//estos van de cincho
-      formConfig['estatus'] = [true,Validators.required];//estos van de cincho
+      for(let combo of this.model.lstCombos){//Cargando a form los inputs
+        formConfig[combo.cName] = [-1,Validators.min(0)];
+        // let p = this.api.select('asd',1,1,combo.cTable).subscribe(data =>{
+        //   this.combosStore[combo.cTable] = data;
+        //   p.unsubscribe();
+        // });
+        this.combosStore[combo.cTable] = [];
 
-      this.form = this.formBuilder.group(formConfig);//agrego los campos al form
-
-      for(let cb of this.model.lstCombos){
-        this.api.select("token",1,2,this.model.cName).subscribe(lst =>{
-          this.combos[this.model.cName] = lst.data; //todo
-        });
       }
+      
+      this.form = this.formBuilder.group(formConfig);//agrego los campos al form
+      console.log(this.form.controls);
     });
+
   }
   resetForm():void {
     this.form.reset();
-    this.form.controls["id"].setValue(null);//null para las validaciones de 'actualizar' != null y 'nuevo' == null
+    this.form.controls[this.model.cPrimary].setValue(null);//null para las validaciones de 'actualizar' != null y 'nuevo' == null
     this.form.controls["estatus"].setValue(true);
   }
 
@@ -114,36 +117,14 @@ export class FormComponent implements OnInit {
   }
 
   save():void {
-    if (!this.form.controls["id"].value) {
-      //guardar
-    //   this.api
-    //     .insert(
-    //       this.form.controls["name"].value,
-    //       this.form.controls["f_lastname"].value,
-    //       this.form.controls["s_lastname"].value,
-    //       this.form.controls["r_date"].value,
-    //       this.form.controls["r_user"].value
-    //     )
-    //     .subscribe(d => {
-    //       if (!d["bError"]) {
-    //         this.select();
-    //       }
-    //     });
-    // } else {
-    //   //actualizar
-    //   this.api
-    //     .update(
-    //       this.form.controls["id"].value,
-    //       this.form.controls["name"].value,
-    //       this.form.controls["f_lastname"].value,
-    //       this.form.controls["s_lastname"].value,
-    //       this.form.controls["r_date"].value,
-    //       this.form.controls["r_user"].value
-    //     )
-    //     .subscribe(d => {
-    //       console.log(d);
-    //       this.select();
-    //     });
+    if (!this.form.controls[this.model.cPrimary].value) {
+      let obj:any = {};
+      for(let c of Object.keys(this.form.controls)){
+        obj[c] = this.form.controls[c].value;
+      }
+      this.api.insert(this.model.cTable,obj).subscribe(data =>{
+        console.log(data);
+      });
     }
   }
 

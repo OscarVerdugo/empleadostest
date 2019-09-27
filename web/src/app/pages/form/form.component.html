@@ -1,4 +1,4 @@
-<h2>{{model.oTags.cTitle}} - {{(form.controls['id'].value ? 'Editar' : 'Nuev'+model.oTags.cEnd) + " "+model.oTags.cSingular}}</h2>
+<h2  *ngIf="form">{{model.oTags.cTitle}} - {{(form.controls[model.cPrimary].value ? 'Editar' : 'Nuev'+model.oTags.cEnd) + " "+model.oTags.cSingular}}</h2>
 <form [formGroup]="form" (submit)="guardarDatos()" *ngIf="form">
     <!-- <div class="form-row">
         <div class="form-group col-md-2">
@@ -7,15 +7,28 @@
         </div>
     </div> -->
     <div class=" form-row">
-        <div class="form-group col-md-4" *ngFor="let input of model.lstInputs">
+        <div *ngFor="let input of model.lstInputs" [className]="input.cType == 'hidden' ? 'd-none' : 'form-group col-md-4'">
             <label>{{input.cLabel}}</label>
             <input class="form-control" [formControlName]="input.cName"
+            [type]="input.cType"
                 [className]="(form.controls[input.cName].invalid && (form.controls[input.cName].dirty || form.controls[input.cName].touched))?'form-control is-invalid' : 'form-control'"
                 >
             <div class="invalid-feedback">
                 Revisar campo.
             </div>
         </div>
+        <div class="form-group" *ngFor="let combo of model.lstCombos">
+                <label>{{combo.cLabel}}</label>
+            <select  [formControlName]="combo.cName" 
+            [className]="(form.controls[combo.cName].invalid && (form.controls[combo.cName].touched))?'custom-select is-invalid' : 'custom-select'"
+            >
+              <option disabled selected>Seleccionar {{model.oTags.cSingular}}</option>
+              <option [value]="op[combo.cName]" *ngFor="let op of combosStore[combo.cTable]">{{op[combo.cDisplay]}}</option>
+            </select>
+            <div class="invalid-feedback">
+                    Revisar campo.
+                </div>
+          </div>
 
         <!-- <div class="form-group col-md-4">
             <label for="f_lastname">Primer Apellido</label>
@@ -47,8 +60,10 @@
         </div>
     </div> -->
 
-    <button type="button" class="btn btn-secondary m-1" [disabled]="form.invalid" (click)="form.controls['id'].value ? openConfirmation(updateConfirmation,'update',e) : openConfirmation(saveConfirmation,'save',e)">Guardar</button>
-    <button type="button" class="btn btn-outline-secondary m-1" (click)="resetForm()">{{form.controls['id'].value ? 'Nuevo':'Limpiar'}}</button>
+    <button type="button" class="btn btn-secondary m-1" [disabled]="form.invalid" (click)="form.controls[model.cPrimary].value ? openConfirmation(updateConfirmation,'update',e) : openConfirmation(saveConfirmation,'save',e)">Guardar</button>
+    <button type="button" class="btn btn-secondary m-1"  (click)="form.controls[model.cPrimary].value ? openConfirmation(updateConfirmation,'update',e) : openConfirmation(saveConfirmation,'save',e)">Guardar</button>
+    
+    <button type="button" class="btn btn-outline-secondary m-1" (click)="resetForm()">{{form.controls[model.cPrimary].value ? 'Nuevo':'Limpiar'}}</button>
 </form>
     <br>
     <br>
