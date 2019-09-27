@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Keys } from './keys';
 import { map } from "rxjs/operators";
 import { Observable } from 'rxjs';
@@ -8,8 +8,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  url= this.keys.apiUrl;
-  constructor(private http: HttpClient, private keys: Keys) { }
+  url = this.keys.apiUrl;
+  headers = new HttpHeaders({
+    "Content-Type": "application/json"
+  });
+  constructor(private http: HttpClient, private keys: Keys) {
+  }
 
 
   // select(token:string,pag:number,pagSize:number,tab:string):Observable<any>{
@@ -32,11 +36,16 @@ export class ApiService {
   //   return this.http.post(this.url+`modules`,{token:token}).pipe(map(data => data));
   // }
 
-  insert(tab:string,obj:any):Observable<any>{
-    return this.http.post(this.url+`api/${tab}`,JSON.stringify(obj)).pipe(map(data => data));
+  insert(tab: string, obj: any): Observable<any> {
+    console.log(JSON.stringify(obj));
+    return this.http.post(this.url + `/${tab}`, JSON.stringify(obj), {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }).pipe(map(data => data));
   }
 
-  
+
 
 
 

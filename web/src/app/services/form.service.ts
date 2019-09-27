@@ -69,7 +69,7 @@ export class FormService {
           } as Input
           ,
           {
-            cName:'Descripcion',
+            cName:'cDescripcion',
             cType:'text',
             aValue:'',
             cLabel:'Descripción',
