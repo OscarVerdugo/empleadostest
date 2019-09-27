@@ -9,7 +9,9 @@ export interface Form {
     cIcon:string;
     oTags:Tags;
     bAdmin:boolean;
+    cTable:string;
     iBuscable:number;
+    cPrimary:string;
 }
 
 export default Form;

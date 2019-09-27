@@ -1,5 +1,5 @@
 export class Keys{
-    apiUrl:string = "https://8ca8fdda.ngrok.io/";
+    apiUrl:string = "http://192.168.1.67:5000/api";
 }
 
 export default Keys;

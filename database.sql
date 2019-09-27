@@ -1,27 +1,27 @@
 
-CREATE TABLE CTL_Turnos(
-    nIdTurno INT NOT NULL PRIMARY KEY IDENTITY(1,1),
-    cDescripcion VARCHAR(50) NOT NULL,
-    bEstatus BIT NOT NULL DEFAULT(1)
-);
+-- CREATE TABLE CTL_Turnos(
+--     nIdTurno INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+--     cDescripcion VARCHAR(50) NOT NULL,
+--     bEstatus BIT NOT NULL DEFAULT(1)
+-- );
 
-CREATE TABLE CTL_Tipo_Incidentes(
-    nIdTipo_Incidente INT NOT NULL PRIMARY KEY IDENTITY(1,1),
-    cDescripcion VARCHAR(50) NOT NULL,
-    bEstatus BIT NOT NULL DEFAULT(1)
-);
+-- CREATE TABLE CTL_Tipo_Incidentes(
+--     nIdTipo_Incidente INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+--     cDescripcion VARCHAR(50) NOT NULL,
+--     bEstatus BIT NOT NULL DEFAULT(1)
+-- );
 
-CREATE TABLE CTL_Areas(
-    nIdArea INT NOT NULL PRIMARY KEY IDENTITY(1,1),
-    cDescripcion VARCHAR(50) NOT NULL,
-    bEstatus BIT NOT NULL DEFAULT(1)
-);
+-- CREATE TABLE CTL_Areas(
+--     nIdArea INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+--     cDescripcion VARCHAR(50) NOT NULL,
+--     bEstatus BIT NOT NULL DEFAULT(1)
+-- );
 
-CREATE TABLE CTL_Sub_Areas(
-    nIdSubArea INT NOT NULL PRIMARY KEY IDENTITY(1,1),
-    cDescripcion VARCHAR(50) NOT NULL,
-    bEstatus BIT NOT NULL DEFAULT(1)
-);
+-- CREATE TABLE CTL_Sub_Areas(
+--     nIdSubArea INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+--     cDescripcion VARCHAR(50) NOT NULL,
+--     bEstatus BIT NOT NULL DEFAULT(1)
+-- );
 
 CREATE TABLE CTL_Tipo_Personal(
     nIdTipo_Personal INT NOT NULL PRIMARY KEY IDENTITY(1,1),
