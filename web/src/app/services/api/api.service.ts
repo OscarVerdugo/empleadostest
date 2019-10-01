@@ -10,8 +10,7 @@ import { Observable } from 'rxjs';
 export class ApiService {
   url = this.keys.apiUrl;
   headers = new HttpHeaders({
-    "Content-Type": "application/json"
-  });
+    'Content-Type': 'application/json' });
   constructor(private http: HttpClient, private keys: Keys) {
   }
 
@@ -37,12 +36,14 @@ export class ApiService {
   // }
 
   insert(tab: string, obj: any): Observable<any> {
-    console.log(JSON.stringify(obj));
-    return this.http.post(this.url + `/${tab}`, JSON.stringify(obj), {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    }).pipe(map(data => data));
+    console.log(this.headers);
+    return this.http.post(this.url + `/${tab}`, obj).pipe(map(data => data));
+  }
+  select(tab: string, obj: any): Observable<any> {
+    return this.http.get(this.url + `/${tab}`).pipe(map(data => data));
+  }
+  delete(tab: string, obj: any): Observable<any> {
+    return this.http.delete(this.url + `/${tab}/1`).pipe(map(data => data));
   }
 
 
