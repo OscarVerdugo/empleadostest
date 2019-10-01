@@ -26,14 +26,18 @@ namespace BlaiseApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+         
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
                 builder.AllowAnyOrigin()
                        .AllowAnyMethod()
                        .AllowAnyHeader();
             }));
-            services.AddControllers();
-            
+            services.AddControllers(options =>
+            {
+                options.RespectBrowserAcceptHeader = true; // false by default
+            });
+
             services.AddDbContext<DBcontexto>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("Conection")));
         }
@@ -45,9 +49,9 @@ namespace BlaiseApi
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCors();
-            app.UseHttpsRedirection();
-            
+            app.UseCors("MyPolicy");
+            //app.UseHttpsRedirection();
+
             app.UseRouting();
 
             app.UseAuthorization();
