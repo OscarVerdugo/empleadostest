@@ -42,19 +42,24 @@ export class FormComponent implements OnInit {
       }
       for(let combo of this.model.lstCombos){//Cargando a form los inputs
         formConfig[combo.cName] = [-1,Validators.min(0)];
-        // let p = this.api.select('asd',1,1,combo.cTable).subscribe(data =>{
-        //   this.combosStore[combo.cTable] = data;
-        //   p.unsubscribe();
-        // });
+        let p = this.api.select("TODO").subscribe(data =>{
+          this.combosStore[combo.cTable] = data;
+          console.log(data);
+          p.unsubscribe();
+        });
         this.combosStore[combo.cTable] = [];
-
       }
-      
+      let ob = this.api.select(this.model.cTable).subscribe(data =>{
+        console.log(data);
+        if(data) this.lst = data;
+        ob.unsubscribe();
+      });
+      this
       this.form = this.formBuilder.group(formConfig);//agrego los campos al form
-      console.log(this.form.controls);
     });
-
   }
+
+  ngOn
   resetForm():void {
     this.form.reset();
     this.form.controls[this.model.cPrimary].setValue(null);//null para las validaciones de 'actualizar' != null y 'nuevo' == null
@@ -117,13 +122,16 @@ export class FormComponent implements OnInit {
   }
 
   save():void {
-    if (!this.form.controls[this.model.cPrimary].value) {
+    if (this.form.controls[this.model.cPrimary].value < 0) {
       let obj:any = {};
       for(let c of Object.keys(this.form.controls)){
         obj[c] = this.form.controls[c].value;
       }
       this.api.insert(this.model.cTable,obj).subscribe(data =>{
         console.log(data);
+      },
+      err => {
+        console.log(err);
       });
     }
   }

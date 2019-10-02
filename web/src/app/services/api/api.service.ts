@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams  } from '@angular/common/http';
 import { Keys } from './keys';
 import { map } from "rxjs/operators";
 import { Observable } from 'rxjs';
@@ -9,9 +9,11 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
   url = this.keys.apiUrl;
-  headers = new HttpHeaders({
-    "Content-Type": "application/json"
-  });
+  headers={
+    headers: new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+    })
+}
   constructor(private http: HttpClient, private keys: Keys) {
   }
 
@@ -38,11 +40,16 @@ export class ApiService {
 
   insert(tab: string, obj: any): Observable<any> {
     console.log(JSON.stringify(obj));
-    return this.http.post(this.url + `/${tab}`, JSON.stringify(obj), {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    }).pipe(map(data => data));
+    const params = new HttpParams({
+      fromObject: {
+        data:JSON.stringify(obj),
+        token:"NIISDN9ADUBN1DB102DBBDF0IAFB0IAFBI0FB"
+      }
+    });
+    return this.http.post(this.url + `${tab}`, params,this.headers).pipe(map(data => data));
+  }
+  select(tab:string):Observable<any>{
+    return this.http.get(this.url+`${tab}`).pipe(map(data => data));
   }
 
 

@@ -57,13 +57,13 @@ export class FormService {
         cIcon:'fa fa-building',
         bAdmin:true,
         cTable:'Areas',
-        cPrimary:'AreaId',
+        cPrimary:'areaId',
         lstInputs:[
           {
-            cName:'AreaId',
+            cName:'areaId',
             cType:'hidden',
-            aValue:'',
-            cLabel:'',
+            aValue:-1,
+            cLabel:'ID',
             oPipe: NonePipe,
             cPipeProps:''
           } as Input
@@ -76,6 +76,14 @@ export class FormService {
             oPipe: NonePipe,
             cPipeProps:'',
           } as Input
+          // {
+          //   cName:'bEstatus',
+          //   cType:'hidden',
+          //   aValue:true,
+          //   cLabel:'Descripción',
+          //   oPipe: NonePipe,
+          //   cPipeProps:'',
+          // } as Input
         ],
         lstCombos:[],
         oTags:{

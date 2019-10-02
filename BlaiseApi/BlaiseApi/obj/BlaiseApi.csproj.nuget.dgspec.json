@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Admin\\source\\repos\\BlaiseApi\\BlaiseApi\\BlaiseApi.csproj": {}
+    "C:\\Users\\oscar\\Desktop\\Angular\\empleadostest\\BlaiseApi\\BlaiseApi\\BlaiseApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Admin\\source\\repos\\BlaiseApi\\BlaiseApi\\BlaiseApi.csproj": {
+    "C:\\Users\\oscar\\Desktop\\Angular\\empleadostest\\BlaiseApi\\BlaiseApi\\BlaiseApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\source\\repos\\BlaiseApi\\BlaiseApi\\BlaiseApi.csproj",
+        "projectUniqueName": "C:\\Users\\oscar\\Desktop\\Angular\\empleadostest\\BlaiseApi\\BlaiseApi\\BlaiseApi.csproj",
         "projectName": "BlaiseApi",
-        "projectPath": "C:\\Users\\Admin\\source\\repos\\BlaiseApi\\BlaiseApi\\BlaiseApi.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin\\source\\repos\\BlaiseApi\\BlaiseApi\\obj\\",
+        "projectPath": "C:\\Users\\oscar\\Desktop\\Angular\\empleadostest\\BlaiseApi\\BlaiseApi\\BlaiseApi.csproj",
+        "packagesPath": "C:\\Users\\oscar\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\oscar\\Desktop\\Angular\\empleadostest\\BlaiseApi\\BlaiseApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\oscar\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
