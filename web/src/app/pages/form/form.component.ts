@@ -63,7 +63,7 @@ export class FormComponent implements OnInit {
   resetForm():void {
     this.form.reset();
     this.form.controls[this.model.cPrimary].setValue(null);//null para las validaciones de 'actualizar' != null y 'nuevo' == null
-    this.form.controls["estatus"].setValue(true);
+    // this.form.controls["estatus"].setValue(true);
   }
 
 
@@ -133,6 +133,9 @@ export class FormComponent implements OnInit {
       err => {
         console.log(err);
       });
+      // this.api.select(this.model.cTable,obj).subscribe(data =>{
+      //     console.log(data);
+      //   });
     }
   }
 
