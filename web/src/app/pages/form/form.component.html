@@ -1,4 +1,5 @@
-<h2  *ngIf="form">{{model.oTags.cTitle}} - {{(form.controls[model.cPrimary].value ? 'Editar' : 'Nuev'+model.oTags.cEnd) + " "+model.oTags.cSingular}}</h2>
+<app-alert [bPresent]="bAlertPresent" [cMessage]="cAlertMessage" [cClass]="cAlertClass"></app-alert>
+<h2  *ngIf="form">{{model.oTags.cTitle}} - {{(form.controls[model.cPrimary].value > 0 ? 'Editar' : 'Registrar')}}</h2>
 <form [formGroup]="form" (submit)="guardarDatos()" *ngIf="form">
     <!-- <div class="form-row">
         <div class="form-group col-md-2">
@@ -61,9 +62,9 @@
     </div> -->
 
     <button type="button" class="btn btn-secondary m-1" [disabled]="form.invalid" (click)="form.controls[model.cPrimary].value > 0 ? openConfirmation(updateConfirmation,'update',e) : openConfirmation(saveConfirmation,'save',e)">Guardar</button>
-    <button type="button" class="btn btn-secondary m-1"  (click)="form.controls[model.cPrimary].value ? openConfirmation(updateConfirmation,'update',e) : openConfirmation(saveConfirmation,'save',e)">Guardar</button>
+    <button type="button" class="btn btn-secondary m-1"  (click)="ex()">Ex</button>
     
-    <button type="button" class="btn btn-outline-secondary m-1" (click)="resetForm()">{{form.controls[model.cPrimary].value ? 'Nuevo':'Limpiar'}}</button>
+    <button type="button" class="btn btn-outline-secondary m-1" (click)="resetForm()">{{form.controls[model.cPrimary].value > 0 ? 'Nuevo':'Limpiar'}}</button>
 </form>
     <br>
     <br>
@@ -88,8 +89,8 @@
                 <td *ngFor="let in of model.lstInputs">{{e[in.cName]}}</td>
                 <!-- <td>{{e.estatus ? 'Activo': 'Inactivo'}}</td> -->
                 <td>
-                        <button class="btn btn-outline-secondary m-1 btn-sm" (click)="editarEmpleado(e)">Editar</button>
-                        <button class="btn btn-outline-danger m-1 btn-sm" (click)="openConfirmation(deleteConfirmation,'delete',e)" [disabled]="!e.estatus">Eliminar</button>
+                        <button class="btn btn-outline-secondary m-1 btn-sm" (click)="edit(e)">Editar</button>
+                        <button class="btn btn-outline-danger m-1 btn-sm" (click)="openConfirmation(deleteConfirmation,'delete',e)">Eliminar</button>
 
                 </td>
             </tr>

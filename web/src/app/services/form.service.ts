@@ -29,7 +29,7 @@ export class FormService {
           {
             cName:'TurnoId',
             cType:'hidden',
-            aValue:'',
+            aValue:-1,
             cLabel:'',
             oPipe: NonePipe,
             cPipeProps:'',
@@ -98,19 +98,19 @@ export class FormService {
         cName:'subareas',//------------------------------------------------------------------------------------------------
         cIcon:'fa fa-flag',
         bAdmin:true,
-        cTable:'SubAreas',
-        cPrimary:'SubAreaId',
+        cTable:'Subareas',
+        cPrimary:'subareaId',
         lstInputs:[
           {
-            cName:'SubAreaId',
+            cName:'subareaId',
             cType:'hidden',
-            aValue:'',
-            cLabel:'',
+            aValue:-1,
+            cLabel:'ID',
             oPipe: NonePipe,
             cPipeProps:'',
           } as Input,
           {
-            cName:'Descripcion',
+            cName:'cDescripcion',
             cType:'text',
             aValue:'',
             cLabel:'Descripción',
@@ -118,7 +118,13 @@ export class FormService {
             cPipeProps:'',
           } as Input
         ],
-        lstCombos:[],
+        lstCombos:[
+          {
+            cTable:'Areas',
+            cDisplay:'cDescripcion',
+            cLabel: 'Area',
+            cName: 'areaId'
+          } as Combo],
         oTags:{
           cSingular:'subárea',
           cPlural:'subáreas',
@@ -138,7 +144,7 @@ export class FormService {
           {
             cName:'TipoPersonalId',
             cType:'hidden',
-            aValue:'',
+            aValue:-1,
             cLabel:'',
             oPipe: NonePipe,
             cPipeProps:'',
@@ -176,7 +182,7 @@ export class FormService {
           {
             cName:'IncidenteId',
             cType:'hidden',
-            aValue:'',
+            aValue:-1,
             cLabel:'',
             oPipe: NonePipe,
             cPipeProps:'',

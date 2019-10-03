@@ -18,6 +18,8 @@ import { NonePipe } from './util/none.pipe';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthService } from './services/authentication/auth.service';
 import { Keys } from "./services/api/keys";
+import { AlertComponent } from './components/alert/alert.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { Keys } from "./services/api/keys";
     ContentComponent,
     NavbarComponent,
     NonePipe,
-    LoginComponent
+    LoginComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,8 @@ import { Keys } from "./services/api/keys";
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    BrowserAnimationsModule
   ],
   providers: [ApiService,EventEmitterService,AuthService,Keys],
   bootstrap: [AppComponent]
