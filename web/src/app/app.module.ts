@@ -20,6 +20,7 @@ import { AuthService } from './services/authentication/auth.service';
 import { Keys } from "./services/api/keys";
 import { AlertComponent } from './components/alert/alert.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { IncidenceFormComponent } from './pages/incidence-form/incidence-form.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NavbarComponent,
     NonePipe,
     LoginComponent,
-    AlertComponent
+    AlertComponent,
+    IncidenceFormComponent
   ],
   imports: [
     BrowserModule,
