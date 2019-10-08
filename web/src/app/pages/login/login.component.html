@@ -12,14 +12,14 @@
         >
           <div class="form-group">
             <label class="text-uppercase"
-              >Username</label
+              >Usuario</label
             >
             <input
               type="text"
               class="form-control"
               placeholder=""
-              formControlName="user"
-              [className]="(form.controls['user'].invalid && (form.controls['user'].dirty || form.controls['user'].touched))?'form-control is-invalid' : 'form-control'"
+              formControlName="cUsuario"
+              [className]="(form.controls['cUsuario'].invalid && (form.controls['cUsuario'].dirty || form.controls['cUsuario'].touched))?'form-control is-invalid' : 'form-control'"
 
             />
             <div class="invalid-feedback">
@@ -28,14 +28,14 @@
           </div>
           <div class="form-group">
             <label class="text-uppercase"
-              >Password</label
+              >Contraseña</label
             >
             <input
               type="password"
               class="form-control"
               placeholder=""
-              formControlName="pass"
-              [className]="(form.controls['pass'].invalid && (form.controls['pass'].dirty || form.controls['pass'].touched))?'form-control is-invalid' : 'form-control'"
+              formControlName="cContra"
+              [className]="(form.controls['cContra'].invalid && (form.controls['cContra'].dirty || form.controls['cContra'].touched))?'form-control is-invalid' : 'form-control'"
             />
             <div class="invalid-feedback">
               Contraseña requerida
@@ -47,7 +47,7 @@
               <small>Remember Me</small>
             </label> -->
             <button type="submit" class="btn btn-primary float-right" [disabled]="form.invalid">
-              Submit
+              Iniciar
             </button>
           </div>
         </form>

@@ -21,6 +21,8 @@ import { Keys } from "./services/api/keys";
 import { AlertComponent } from './components/alert/alert.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IncidenceFormComponent } from './pages/incidence-form/incidence-form.component';
+import { ViewIncidencesComponent } from './pages/view-incidences/view-incidences.component';
+import { EstadoPipe } from './util/estado-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { IncidenceFormComponent } from './pages/incidence-form/incidence-form.co
     NonePipe,
     LoginComponent,
     AlertComponent,
-    IncidenceFormComponent
+    IncidenceFormComponent,
+    ViewIncidencesComponent,
+    EstadoPipe
   ],
   imports: [
     BrowserModule,

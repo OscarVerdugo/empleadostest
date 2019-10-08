@@ -37,6 +37,7 @@ export class FormComponent implements OnInit {
   ngOnInit() {
     // this.select();
     //Obtener el calogo de las route.params
+    this.forms.init();
     this.route.params.subscribe(p => {
     this.lst = [];
 
@@ -50,7 +51,7 @@ export class FormComponent implements OnInit {
       }
       for (let combo of this.model.lstCombos) {
         //Cargando a form los inputs
-        formConfig[combo.cName] = [-1, Validators.min(0)];
+        formConfig[combo.cName] = [null, [Validators.min(0),Validators.required]];
         let p = this.api.select(combo.cTable).subscribe(data => {
           this.combosStore[combo.cTable] = data;
           p.unsubscribe();
@@ -116,7 +117,7 @@ export class FormComponent implements OnInit {
         if (!data["bError"]) {
           this.cAlertClass = "alert-success";
           this.cAlertMessage =
-             this.model.oTags.cSingular + " elimina"+this.model.oTags.cEnd+ " exitosamente !!";
+             this.model.oTags.cSingular + " eliminad"+this.model.oTags.cEnd+ " exitosamente !!";
              try{
                let i = this.lst.findIndex(x => x[this.model.cPrimary] == obj[this.model.cPrimary]);
                if(i >= 0){
@@ -169,7 +170,7 @@ export class FormComponent implements OnInit {
             //error false
             this.cAlertClass = "alert-success";
             this.cAlertMessage =
-              "Registro de " + this.model.oTags.cSingular + " exitoso !!";
+              "Registro de " + this.model.oTags.cSingular + " exitoso!!";
 
             obj[this.model.cPrimary] = data["nPayload"]; //Inserted primary key
 
@@ -178,7 +179,7 @@ export class FormComponent implements OnInit {
           } else {
             this.cAlertClass = "alert-danger";
             this.cAlertMessage =
-              "Registro de " + this.model.oTags.cSingular + " fallido !!";
+              "Registro de " + this.model.oTags.cSingular + " fallido!!";
           }
         },
         err => {
@@ -192,7 +193,7 @@ export class FormComponent implements OnInit {
           if (!data["bError"]) {
             this.cAlertClass = "alert-success";
             this.cAlertMessage =
-              "Registro de " + this.model.oTags.cSingular + " exitoso !!";
+              "Actualización de " + this.model.oTags.cSingular + " exitosa!!";
             try {
               let i = this.lst.findIndex(
                 x => x[this.model.cPrimary] == obj[this.model.cPrimary]
@@ -207,7 +208,7 @@ export class FormComponent implements OnInit {
           } else {
             this.cAlertClass = "alert-danger";
             this.cAlertMessage =
-              "Modificación de " + this.model.oTags.cSingular + " fallida !!";
+              "Modificación de " + this.model.oTags.cSingular + " fallida!!";
           }
         },
         err => {
@@ -218,7 +219,7 @@ export class FormComponent implements OnInit {
     this.bAlertPresent = true;
     setTimeout(() => {
       this.bAlertPresent = false;
-    }, 1000);
+    }, 2000);
   }
 
   ex() {

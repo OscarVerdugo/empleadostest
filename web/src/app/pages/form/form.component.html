@@ -7,7 +7,7 @@
             <input class="form-control" formControlName="id" readonly>
         </div>
     </div> -->
-    <div class=" form-row">
+    <div class="form-row">
         <div *ngFor="let input of model.lstInputs" [className]="input.cType == 'hidden' ? 'd-none' : 'form-group col-md-4'">
             <label>{{input.cLabel}}</label>
             <input class="form-control" [formControlName]="input.cName"
@@ -18,7 +18,7 @@
                 Revisar campo.
             </div>
         </div>
-        <div class="form-group" *ngFor="let combo of model.lstCombos">
+        <div class="form-group col-md-4" *ngFor="let combo of model.lstCombos">
                 <label>{{combo.cLabel}}</label>
             <select  [formControlName]="combo.cName" 
             [className]="(form.controls[combo.cName].invalid && (form.controls[combo.cName].touched))?'custom-select is-invalid' : 'custom-select'"
@@ -79,16 +79,16 @@
     <table class="table table-hover table-bordeless">
         <thead class="thead-dark">
             <tr>
-                <th *ngFor="let col of  model.lstInputs">{{col.cLabel}}</th>
-                <th>Acción</th>
+                <th *ngFor="let col of  model.lstInputs" class="text-center">{{col.cLabel}}</th>
+                <th class="text-center">Acción</th>
             </tr>
         </thead>
         <tbody>
             <!-- <tr *ngFor="let e of filterList('nombre') | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize"> -->
                <tr *ngFor="let e of lst">
-                <td *ngFor="let in of model.lstInputs">{{e[in.cName]}}</td>
+                <td *ngFor="let in of model.lstInputs" class="text-center">{{e[in.cName]}}</td>
                 <!-- <td>{{e.estatus ? 'Activo': 'Inactivo'}}</td> -->
-                <td>
+                <td class="text-center">
                         <button class="btn btn-outline-secondary m-1 btn-sm" (click)="edit(e)">Editar</button>
                         <button class="btn btn-outline-danger m-1 btn-sm" (click)="openConfirmation(deleteConfirmation,'delete',e)">Eliminar</button>
 

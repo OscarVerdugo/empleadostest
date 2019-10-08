@@ -1,0 +1,49 @@
+<div class="row">
+    <ngb-tabset justify="justified" class="expand">
+        <ngb-tab>
+          <ng-template ngbTabTitle><b>Mis incidencias</b></ng-template>
+
+          <ng-template ngbTabContent>
+                <div class="p-3">
+                        <table class="table table-hover table-bordeless">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th class="text-center">Empleado</th>
+                                        <th class="text-center">Tipo de Permiso</th>
+                                        <th class="text-center">Turno</th>
+                                        <th class="text-center">Fecha de Inicio</th>
+                                        <th class="text-center">Fecha Final</th>
+                                        <th class="text-center">Estatus</th>
+                                        <th class="text-center"></th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let inc of lstIncidencias">
+                                        <td class="text-center">{{inc.cUsuario}}</td>
+                                        <td class="text-center">{{inc.cTipoIncidente}}</td>
+                                        <td class="text-center">{{inc.cTurno}}</td>
+                                        <td class="text-center">{{inc.dFechaInicio | date: 'dd/MM/yyyy'}}</td>
+                                        <td class="text-center">{{inc.dFechaFinal | date: 'dd/MM/yyyy'}}</td>
+                                        <td class="text-center">{{inc.nEstado | estado}}</td>
+                                        <td class="text-center">
+                                            <button class="btn btn-outline-secondary m-1 btn-sm" (click)="verIncidencia(inc.incidenciaId)">Ver</button></td>
+                                    </tr>
+                                </tbody>
+                        </table>
+                </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab>
+          <ng-template ngbTabTitle><b>Incidencias</b></ng-template>
+          <ng-template ngbTabContent>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.
+            <p>Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table
+            craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl
+            cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia
+            yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean
+            shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero
+            sint qui sapiente accusamus tattooed echo park.</p>
+          </ng-template>
+        </ngb-tab>
+      </ngb-tabset>
+</div>

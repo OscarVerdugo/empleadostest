@@ -1,4 +1,135 @@
-<div class=" form-row">
-    
+<app-alert [bPresent]="bAlertPresent" [cMessage]="cAlertMessage" [cClass]="cAlertClass"></app-alert>
+<form [formGroup]="form" (ngSubmit)="guardarDatos()" *ngIf="form">
+    <h2 align="center"><b>Solicitud de Permisos y/o Vacaciones</b></h2>
+    <br>
+  <h5>
+    <b>Nombre del empleado:</b>&nbsp; {{ cNombre }}&nbsp;&nbsp;&nbsp; <b>Clave:</b>&nbsp;{{
+      cNumeroEmpleado
+    }}
+  </h5>
+  <div class=" form-row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Permiso a partir del día:</label>
+        <div class="input-group">
+          <input
+            class="form-control"
+            placeholder="dd-mm-yyyy"
+            name="dpInicio"
+            [formControlName]="'dFechaInicio'"
+            (ngModelChange)="fromChange()"
+            ngbDatepicker
+            #dInicio="ngbDatepicker"
+          />
+          <div class="input-group-append">
+            <a class="btn btn-outline-secondary" (click)="dInicio.toggle()"
+              ><i class="fa fa-calendar-week"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Al:</label>
 
-</div>
+        <div class="input-group">
+          <input
+            class="form-control"
+            placeholder="dd-mm-yyyy"
+            name="dpFin"
+            (ngModelChange)="toChange()"
+            [formControlName]="'dFechaFin'"
+            ngbDatepicker
+            #dFin="ngbDatepicker"
+          />
+          <div class="input-group-append">
+            <a class="btn btn-outline-secondary" (click)="dFin.toggle()"
+              ><i class="fa fa-calendar-week"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Deberá presentarse a laborar el día:</label>
+
+        <div class="input-group">
+          <input
+            class="form-control"
+            placeholder="dd-mm-yyyy"
+            name="dpLaborar"
+            [formControlName]="'dFechaLaborar'"
+            ngbDatepicker
+            #dLaborar="ngbDatepicker"
+          />
+          <div class="input-group-append">
+            <a class="btn btn-outline-secondary" (click)="dLaborar.toggle()"
+              ><i class="fa fa-calendar-week"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>En virtud de:</label>
+        <select
+          [formControlName]="'tipoIncidenteId'"
+          [className]="
+            form.controls['tipoIncidenteId'].invalid &&
+            form.controls['tipoIncidenteId'].touched
+              ? 'custom-select is-invalid'
+              : 'custom-select'
+          "
+          placeholder="Seleccionar..."
+        >
+          <option
+            [value]="op.tipoIncidenteId"
+            *ngFor="let op of combosStore['TipoIncidentes']"
+            >{{ op["cDescripcion"] }}</option
+          >
+        </select>
+        <div class="invalid-feedback">
+          Revisar campo.
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Turno:</label>
+        <select
+          [formControlName]="'turnoId'"
+          [className]="
+            form.controls['turnoId'].invalid && form.controls['turnoId'].touched
+              ? 'custom-select is-invalid'
+              : 'custom-select'
+          "
+        >
+          <option
+            [value]="op.turnoId"
+            *ngFor="let op of combosStore['Turnos']"
+            >{{ op["cDescripcion"] }}</option
+          >
+        </select>
+        <div class="invalid-feedback">
+          Revisar campo.
+        </div>
+      </div>
+  </div>
+    <div class="col-md-6 align-self-center" align="center">
+        <h3>Calendario</h3>
+            <ngb-datepicker #dp (select)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden" >
+                </ngb-datepicker>
+                
+                <ng-template #t let-date let-focused="focused" disabled>
+                  <span class="custom-day"
+                        [class.focused]="focused"
+                        [class.range]="isRange(date)"
+                        [class.faded]="isHovered(date) || isInside(date)"
+                        (mouseenter)="hoveredDate = date"
+                        (mouseleave)="hoveredDate = null">
+                    {{ date.day }}
+                  </span>
+                </ng-template>
+    </div>
+  </div>
+  <div class="row p-2">
+      <button type="button" class="btn btn-secondary m-1" [disabled]="form.invalid" (click)="guardar()">Guardar</button>
+      <button type="button" class="btn btn-secondary m-1"  (click)="validarFechas()">Ex</button>
+      <button type="button" class="btn btn-outline-secondary m-1" (click)="resetForm()">Limpiar</button>
+  </div>
+</form>

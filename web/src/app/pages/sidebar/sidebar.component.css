@@ -35,6 +35,10 @@ a:focus {
   font-size: 2em;
 }
 
+.components{
+  overflow: auto;
+}
+
 #sidebar ul.components {
   padding: 20px 0px;
   list-style: none;

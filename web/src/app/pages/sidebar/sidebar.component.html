@@ -3,10 +3,10 @@
     <a style="color:#fff;" routerLink="form">Hospital Civil</a>
   </div>
   <div class="sesion">
-    <p>Nombre: <b>Ejemplo</b></p>
+    <p>Usuario: <b>{{cNombre}}</b></p>
   </div>
   <ul class="components">
-    <li *ngFor="let cat of c.lstForms">
+    <li *ngFor="let cat of lstC">
       <a [routerLink]="['c'+'/',cat.cName]"
           routerLinkActive="active">
         <i [class]="cat.cIcon"></i>
@@ -18,6 +18,13 @@
           routerLinkActive="active">
         <i class="fa fa-user-clock"></i>
         Registrar Incidencias</a
+      >
+    </li>
+    <li>
+      <a [routerLink]="['view-incidences']"
+          routerLinkActive="active">
+        <i class="fa fa-user-clock"></i>
+        Ver Incidencias</a
       >
     </li>
   </ul>

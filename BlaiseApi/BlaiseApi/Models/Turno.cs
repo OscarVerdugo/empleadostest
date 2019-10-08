@@ -8,11 +8,10 @@ namespace BlaiseApi.Models
 {
     public class Turno
     {
-        public int TurnoId { get; set; }
+        public int turnoId { get; set; }
         [Required]
         [MaxLength(length: 50)]
-        public string Descripcion { get; set; }
+        public string cDescripcion { get; set; }
         public bool bEstatus { get; set; } = true;
-
     }
 }

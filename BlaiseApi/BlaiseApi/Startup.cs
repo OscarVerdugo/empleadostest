@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using BlaiseApi.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 
 namespace BlaiseApi
 {
@@ -21,25 +23,31 @@ namespace BlaiseApi
         {
             Configuration = configuration;
         }
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-         
-            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            services.AddCors(options => options.AddPolicy("MyPolicy", builder =>
             {
-                builder.AllowAnyOrigin()
-                       .AllowAnyMethod()
-                       .AllowAnyHeader();
+                builder.WithOrigins("https://localhost:4200").WithOrigins("https://192.168.1.69").AllowAnyMethod().WithMethods("PUT").AllowAnyHeader().AllowAnyOrigin();
             }));
-            services.AddControllers(options =>
-            {
-                options.RespectBrowserAcceptHeader = true; // false by default
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters { 
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidAudience = "midominio.com",
+                ValidIssuer = "midominio.com",
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ANI9SD01I9N2D0ANS0D91N21N329ASD")),
+                ClockSkew = TimeSpan.Zero
             });
 
-            services.AddDbContext<DBcontexto>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("Conection")));
+            services.AddDbContext<BlaiseApi.Context.ContextDB>(options => options.UseSqlServer(Configuration.GetConnectionString("BlaiseApiCS")));
+            services.AddControllers().AddNewtonsoftJson(); 
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,10 +57,13 @@ namespace BlaiseApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseAuthentication();
             app.UseCors("MyPolicy");
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
             app.UseRouting();
+
 
             app.UseAuthorization();
 

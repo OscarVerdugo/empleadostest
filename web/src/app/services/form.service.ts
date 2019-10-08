@@ -18,24 +18,24 @@ export class FormService {
   
 
   init(){
-    this.lstForms.push(
+    this.lstForms = [
       {
         cName:'turno',//------------------------------------------------------------------------------------------------
         cIcon:'fa fa-user-clock',
         bAdmin:true,
         cTable:'Turnos',
-        cPrimary:'TurnoId',
+        cPrimary:'turnoId',
         lstInputs:[
           {
-            cName:'TurnoId',
+            cName:'turnoId',
             cType:'hidden',
             aValue:-1,
-            cLabel:'',
+            cLabel:'ID',
             oPipe: NonePipe,
             cPipeProps:'',
           } as Input
           ,{
-            cName:'Descripcion',
+            cName:'cDescripcion',
             cType:'text',
             aValue:'',
             cLabel:'Descripción',
@@ -137,12 +137,12 @@ export class FormService {
         cName:'tipoPersonal',//------------------------------------------------------------------------------------------------
         cIcon:'fa fa-exclamation',
         bAdmin:true,
-        cTable:'TipoPersonals',//nms
+        cTable:'TiposPersonal',//nms
 
-        cPrimary:'TipoPersonalId',
+        cPrimary:'tipoPersonalId',
         lstInputs:[
           {
-            cName:'TipoPersonalId',
+            cName:'tipoPersonalId',
             cType:'hidden',
             aValue:-1,
             cLabel:'',
@@ -150,7 +150,7 @@ export class FormService {
             cPipeProps:'',
           } as Input,
           {
-            cName:'Descripcion',
+            cName:'cDescripcion',
             cType:'text',
             aValue:'',
             cLabel:'Descripción',
@@ -158,12 +158,7 @@ export class FormService {
             cPipeProps:'',
           } as Input
         ],
-        lstCombos:[{
-          cName:'nIdSubArea',
-          cTable:'SubAreas',
-          cLabel:'SubArea',
-          cDisplay:'Descripcion'
-        } as Combo],
+        lstCombos:[],
         oTags:{
           cSingular:'tipo de personal',
           cPlural:'tipos de personal',
@@ -173,14 +168,56 @@ export class FormService {
         iBuscable:1,
       } as Form,
       {
+        cName:'tipoUsuario',//------------------------------------------------------------------------------------------------
+        cIcon:'fa fa-exclamation',
+        bAdmin:true,
+        cTable:'TipoUsuarios',//nms
+
+        cPrimary:'tipoUsuarioId',
+        lstInputs:[
+          {
+            cName:'tipoUsuarioId',
+            cType:'hidden',
+            aValue:-1,
+            cLabel:'',
+            oPipe: NonePipe,
+            cPipeProps:'',
+          } as Input,
+          {
+            cName:'cDescripcion',
+            cType:'text',
+            aValue:'',
+            cLabel:'Descripción',
+            oPipe: NonePipe,
+            cPipeProps:'',
+          } as Input,
+          {
+            cName:"nEstadoAsignado",
+            cType:'number',
+            aValue:'',
+            cLabel:'Estado asignado',
+            oPipe: NonePipe,
+            cPipeProps:'',
+          } as Input
+        ],
+        lstCombos:[],
+        oTags:{
+          cSingular:'tipo de usuario',
+          cPlural:'tipos de usuarios',
+          cTitle:'Tipos de Usuarios',
+          cEnd:'o'
+        } as Tags,
+        iBuscable:1,
+      } as Form,
+      {
         cName:'tipoIncidentes',//------------------------------------------------------------------------------------------------
         cIcon:'fa fa-building',
         bAdmin:true,
         cTable:'TipoIncidentes',
-        cPrimary:'IncidenteId',
+        cPrimary:'tipoIncidenteId',
         lstInputs:[
           {
-            cName:'IncidenteId',
+            cName:'tipoIncidenteId',
             cType:'hidden',
             aValue:-1,
             cLabel:'',
@@ -189,7 +226,7 @@ export class FormService {
           } as Input
           ,
           {
-            cName:'Descripcion',
+            cName:'cDescripcion',
             cType:'text',
             aValue:'',
             cLabel:'Descripción',
@@ -205,7 +242,89 @@ export class FormService {
           cEnd:'o'
         } as Tags,
         iBuscable:1,
+      } as Form,
+      {
+        cName:'usuarios',//------------------------------------------------------------------------------------------------
+        cIcon:'fa fa-building',
+        bAdmin:true,
+        cTable:'Usuarios',
+        cPrimary:'usuarioId',
+        lstInputs:[
+          {
+            cName:'usuarioId',
+            cType:'hidden',
+            aValue:-1,
+            cLabel:'',
+            oPipe: NonePipe,
+            cPipeProps:'',
+          } as Input
+          ,
+          {
+            cName:'cNombres',
+            cType:'text',
+            aValue:'',
+            cLabel:'Nombres',
+            oPipe: NonePipe,
+            cPipeProps:'',
+          } as Input
+          ,
+          {
+            cName:'cPApellido',
+            cType:'text',
+            aValue:'',
+            cLabel:'Primer Apellido ',
+            oPipe: NonePipe,
+            cPipeProps:'',
+          } as Input
+          ,
+          {
+            cName:'cSApellido',
+            cType:'text',
+            aValue:'',
+            cLabel:'Segundo Apellido',
+            oPipe: NonePipe,
+            cPipeProps:'',
+          } as Input,
+          {
+            cName:'cContra',
+            cType:'password',
+            aValue:'',
+            cLabel:'Contraseña',
+            oPipe: NonePipe,
+            cPipeProps:'',
+          } as Input
+          ,
+          {
+            cName:'cNumeroEmpleado',
+            cType:'text',
+            aValue:'',
+            cLabel:'Num. Empleado',
+            oPipe: NonePipe,
+            cPipeProps:'',
+          } as Input
+        ],
+        lstCombos:[
+          {
+            cTable:'TipoUsuarios',
+            cDisplay:'cDescripcion',
+            cLabel: 'Tipo de Usuario',
+            cName: 'tipoUsuarioId'
+          } as Combo,
+          {
+            cTable:'TiposPersonal',
+            cDisplay:'cDescripcion',
+            cLabel: 'Tipo de Personal',
+            cName: 'tipoPersonalId'
+          } as Combo
+        ],
+        oTags:{
+          cSingular:'usuario',
+          cPlural:'usuarios',
+          cTitle:'Usuarios',
+          cEnd:'o'
+        } as Tags,
+        iBuscable:1,
       } as Form
-    )
+    ];
   }
 }

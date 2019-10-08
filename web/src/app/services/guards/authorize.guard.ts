@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import {
   CanActivate,
-  ActivatedRouteSnapshot,
   Router
 } from "@angular/router";
 import { AuthService } from "../authentication/auth.service";
@@ -18,7 +17,7 @@ export class AuthorizeGuard implements CanActivate {
       this.auth.validateToken().then(data => {
         console.log(data);
         if(data['bError']){
-          this.router.navigate(['/login']);
+          this.auth.logOut();
           resolve(false);
         }else{
           resolve(true);

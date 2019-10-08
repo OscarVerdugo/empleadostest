@@ -1,6 +1,6 @@
 import { Component, OnInit,Input, Output, EventEmitter } from '@angular/core';
 import { FormService } from "../../services/form.service";
-
+import { AuthService } from "../../services/authentication/auth.service";
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -11,10 +11,18 @@ export class SidebarComponent implements OnInit {
   @Input() hiddenSideBar : boolean;
   @Output() hiddenEvent = new EventEmitter<boolean>();
 
-  constructor(private c: FormService) { }
+  lstC = [];
+  cNombre:string = "";
+  constructor(private c: FormService, private auth: AuthService) { }
 
   ngOnInit() {
-    this.c.init();
+    this.cNombre = localStorage.getItem("HCC:Nombre") + " " + localStorage.getItem("HCC:PApellido");
+    this.auth.isAdmin().then(data =>{
+      if(!data['bError']){
+        this.c.init();
+        this.lstC = this.c.lstForms;
+      }
+    });
   }
 
   toggle(){
